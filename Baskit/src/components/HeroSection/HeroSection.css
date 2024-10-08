@@ -1,0 +1,19 @@
+.hero-section{
+    height: 60vh;
+    width: 100%;
+
+    
+    border: 1px solid black;
+    display: flex;
+}
+
+.hero-desc{
+    flex: 1;
+
+
+}
+
+.hero-visual{
+    flex: 1;
+    background-color: var(--primary-color);
+}
