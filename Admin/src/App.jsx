@@ -1,14 +1,24 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
+import NavBar from './NavBar'
+import SideBar from './views/SideBar'
+import {Outlet} from 'react-router-dom'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div>
-      <h1 className='bg-red-900'>Admin pannel</h1>
+    <div className='min-h-[100vh] h-full'>
+     <NavBar/>
+     
+    
+     <div className='border-t-2 flex'>
+      <SideBar/>
+      <Outlet/>
+     </div>
+
+
     </div>
   )
 }
