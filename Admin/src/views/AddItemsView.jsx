@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ProductExtraIamge } from "../components/ProductExtraIamge";
 import image from "../assets/Tshirt.png";
 import { ProductSize } from "../components/ProductSize";
 export const AddItemsView = () => {
 const [thumbnail,setThumbnail]=useState();
 const [extraImages,setExtraImages]=useState({});
-const [name,setName]=useState();
-const [price,setPrice]=useState();
+const [name,setName]=useState('');
+const [price,setPrice]=useState('');
 const sizes=new Set()
-const [category,setCategory]=useState();
-const [subcategory,setSubCategory]=useState();
-const [smallDescription,setSmallDescription]=useState();
-const [fullDescription,setFullDescription]=useState();
-const formData=new formData();
+const [category,setCategory]=useState('');
+const [subcategory,setSubCategory]=useState('');
+const [smallDescription,setSmallDescription]=useState('');
+const [fullDescription,setFullDescription]=useState('');
+
 const handleThumbnailChange=(e)=>{
   console.log("Thumbnail changed")
   const image=e.target.files[0]
@@ -25,14 +25,14 @@ const handleExtraImagesChange=(e)=>{
 
   const image=e.target.files[0]
   const fieldName=e.target.name;
-  setExtraImages({...extraImages,[fieldName]:[image]})
+  setExtraImages({...extraImages,[fieldName]:image})
 
 }
 const handleNameChange=(e)=>{
 console.log("Name changed");
 
 const newName=e.target.value;
-setName(name)
+setName(newName)
  
 }
 const handlePriceChange=(e)=>{
@@ -64,16 +64,64 @@ const handleSmallDescriptionChange=(e)=>{
 }
 const handleFullDescriptionChange=(e)=>{
   console.log("full desc changed")
-const newFullDescription=e.target.velue;
+const newFullDescription=e.target.value;
 setFullDescription(newFullDescription)
 }
 
-const handleFormSubmit=(e)=>{
+const handleFormSubmit=async (e)=>{
+
+e.preventDefault();
+
+// if (!name || !price || !smallDescription || !fullDescription || !sizes || !category || !subcategory || !thumbnail) {
+//   alert("Please fill in all the fields.");
+//   return;
+// }
+const formData=new FormData();
+  const sizesList=Array.from(sizes)
+  formData.append('name',name);
+  formData.append('price',price)
+  formData.append('smallDescription',smallDescription)
+  formData.append('fullDescription',fullDescription)
+  formData.append('sizes',sizesList)
+  formData.append('thumbnail',thumbnail)
+  formData.append('category',category)
+  formData.append('subCategory',subcategory)
+  
+  console.log("formData:",formData)
+
+  for (const key in extraImages) {
+    if (extraImages[key]) {
+      formData.append('extraImages', extraImages[key]);
+    }
+  }
+
+  // **Logging FormData**
+  for (let [key, value] of formData.entries()) {
+    console.log(`${key}:`, value);
+  }
+
+
+  //sending data to server
+
+  fetch('http://localhost:8000/upload',{
+    method:"POST",
+    body:formData
+  }).then(async (response)=>{
+    if(response.ok){
+      const responeData=await response.json();
+      console.log("response data ",responeData)
+    }
+  }).catch((err)=>{
+    console.log("ERror sending formdata",err)
+  })
 
 
 }
+
+
+
   return (
-    <form className="py-6 px-10 text-start flex flex-col gap-4">
+    <form onSubmit={handleFormSubmit} className="py-6 px-10 text-start flex flex-col gap-4">
 
       {/* product Thumbnail */}
      <div className="flex flex-col gap-2">
@@ -96,6 +144,8 @@ const handleFormSubmit=(e)=>{
       <div className="flex flex-col gap-2">
         <h1>Product name</h1>
         <input
+        name="name"
+        required
         onChange={handleNameChange}
           className="w-full px-2 py-1 border-2 border-[rgba(0,0,0,0.3)] outline-none"
           placeholder="Enter product name"
@@ -104,6 +154,8 @@ const handleFormSubmit=(e)=>{
       <div className="flex flex-col gap-2">
         <h1>Small descripton</h1>
         <textarea
+        name="smallDescription"
+         required
         onChange={handleSmallDescriptionChange}
           className="w-full px-2 py-1 border-2 border-[rgba(0,0,0,0.3)] outline-none"
           placeholder="Small descritpion about product"
@@ -114,6 +166,9 @@ const handleFormSubmit=(e)=>{
         <div className="flex flex-col gap-2">
           <h1>Product category</h1>
           <select
+          name="category"
+          required
+          value={'Men'}
           onChange={handleCategoryChange}
             className="flex-1 px-2 py-1 border-2 border-[rgba(0,0,0,0.3)] outline-none"
             placeholder="category"
@@ -125,6 +180,8 @@ const handleFormSubmit=(e)=>{
         <div className="flex flex-col gap-2">
           <h1>Sub category</h1>
           <select
+          name="subCategory"
+          required
           onChange={handleSubCategoryChange}
             className="flex-1  px-2 py-1 border-2 border-[rgba(0,0,0,0.3)] outline-none"
             placeholder="Sub category"
@@ -137,6 +194,8 @@ const handleFormSubmit=(e)=>{
         <div className="flex flex-col gap-2">
           <h1>Product price</h1>
           <input
+          name="price"
+          required
           onChange={handlePriceChange}
             type="number"
             className="flex-1 px-2 py-1 border-2 border-[rgba(0,0,0,0.3)] outline-none"
@@ -157,7 +216,8 @@ const handleFormSubmit=(e)=>{
    </div>
       <div className="flex flex-col gap-2">
         <h1>Full descripton</h1>
-        <textarea
+        <textarea required
+        name="fullDescription"
         onChange={handleFullDescriptionChange}
           className="w-full px-2 py-1 border-2 border-[rgba(0,0,0,0.3)] outline-none"
           placeholder="Enter product name"

@@ -9,7 +9,7 @@ export const ProductExtraIamge = ({inputChange,fieldName}) => {
   }
   return (
     <div className='w-[100px] h-[130px] bg-[rgba(0,0,0,0.1)] flex justify-center items-center px-2 text-xl text-[rgba(0,0,0,0.6)] cursor-pointer relative '>
-      <input name={fieldName} onChange={(e)=>{handleImageChange(e),inputChange(e)}
+      <input  name={fieldName} onChange={(e)=>{handleImageChange(e),inputChange(e)}
       }className='absolute h-full w-full opacity-0 z-40' type='file' />
 
    

@@ -2,12 +2,14 @@ const express =require('express')
 const mongoose =require('mongoose');
 const dotenv=require('dotenv')
 const multer =require('multer')
+const cors=require('cors')
 const cloudinary  =require('cloudinary').v2
 dotenv.config();
 //creating express app
 
 const app=express();
 app.use(express.json())
+app.use(cors())
 //PORT on that server run
 const PORT=8000;
 //connecting server to DB
@@ -83,7 +85,10 @@ cloudinary.config({
 ///MULTER setup ,
 
 const storage = multer.diskStorage({
+
     destination: (req, file, cb) => {
+        console.log("file:",file)
+        console.log("body from multer fun",req.body)
       cb(null, 'uploads/'); // Folder to store images temporarily
     },
     filename: (req, file, cb) => {
@@ -96,30 +101,63 @@ const storage = multer.diskStorage({
 
 //express route for image upload
 
-app.post('/upload',upload.single('image'),async(req,res)=>{
+app.post('/upload',upload.fields([
+    {name:'thumbnail',maxCount:1},
+    {name:'extraImages',maxCount:5}
+]),async(req,res)=>{
 
+    console.log("req body:",req.body)
     const {name,price}=req.body;
 
     //upload image to cloudinary
-    const filPath=req.file.path;
-    console.log("file:",req.file)
-    console.log("FilePath is :",filPath)
   
-    if(filPath){
+    const files=req.files;
+    console.log("file::::",req.files)
+
+  
+  
+
+    if(files){
 
         try{
 
-            const result =await cloudinary.uploader.upload(filPath,{
+            const thumbnailFile=req.files['thumbnail'][0];
+            const extraImagesFiles=req.files['extraImages'];
+      
+///geting cloudinary url for thumbnail image
+       const thumbnailImageResult=  await cloudinary.uploader.upload(thumbnailFile.path,{
                 folder:'clothes',
                 
-            },);
-        
-            ProductModel.create({
-                name:name,
-                price:price,
-                imageUrl:result.secure_url
+            },(error,result)=>{
+                if(error){
+                    return res.status(500).json({"cloudinaryErro:":error})
+                }
             })
-            return res.json({imageURL:result.secure_url})
+        const thumbnailCloudinaryUrl=thumbnailImageResult.secure_url;
+
+        ///geting cloudinar url for thumbnail image
+
+        const extraImagesCloudinaryUrls=[];
+
+for (const file of extraImagesFiles){
+    const result =await cloudinary.uploader.upload(file.path,{
+        folder:'clothes'
+},(error,result)=>{
+    return res.status(401).json({"Error":`Cloudinary error ${error}`})
+})
+
+extraImagesCloudinaryUrls.push(result.secure_url)
+
+}
+
+
+
+            // ProductModel.create({
+            //     name:name,
+            //     price:price,
+            //     imageUrl:result.secure_url
+            // })
+           
           }catch(error){
             console.log("Error uploading cloudinary:",error)
             return res.status(500).json({"Error":"Error uploading to cloudinary"})
