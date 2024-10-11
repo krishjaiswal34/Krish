@@ -1,9 +1,10 @@
 import React from 'react'
+import './SmallImage.css'
 
-export const SmallImage = ({image}) => {
+export const SmallImage = ({image,setPreviewImage}) => {
   return (
-    <div className="bg-[rgba(0,0,0,0.1)] px-2">
-    <img className="w-full" src={image} alt="image" />
+    <div onClick={()=>setPreviewImage(image)} className="small-image">
+    <img  src={image} alt="image" />
   </div>
   )
 }

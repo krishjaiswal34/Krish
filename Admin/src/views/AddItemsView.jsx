@@ -84,7 +84,10 @@ const formData=new FormData();
   formData.append('price',price)
   formData.append('smallDescription',smallDescription)
   formData.append('fullDescription',fullDescription)
-  formData.append('sizes',sizes)
+ sizes.forEach(size => {
+  
+  formData.append('sizes[]',size)
+ });
   formData.append('thumbnail',thumbnail)
   formData.append('category',category)
   formData.append('subCategory',subcategory)
@@ -119,7 +122,9 @@ const formData=new FormData();
 
 
 }
-
+useEffect(()=>{
+  console.log("size from adddITme com:",sizes)
+},[sizes])
 
 
   return (

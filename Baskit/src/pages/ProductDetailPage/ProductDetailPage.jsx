@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import SizeSelectOption from "../../components/SizeSelectOption";
 import { Button } from "../../components/Button";
@@ -7,6 +7,9 @@ import { SmallImage } from "../../components/SmallImage";
 export const ProductDetailPage = () => {
   const loacation = useLocation();
   const { product } = loacation.state || {};
+  const [previwImage,setPreviewImage]=useState(product.thumbnail);
+
+  console.log("product from product detail::",product)
   useEffect(()=>{
     window.scrollTo(0,0)
   })
@@ -14,20 +17,21 @@ export const ProductDetailPage = () => {
     <div>
       <hr />
       <div className="flex gap-10 w-full h-[80vh] py-8">
-        <div className="w-1/2 flex gap-4">
+        <div className="w-1/2 flex gap-4 h-full">
 
-          <div className="flex flex-col gap-4 w-[300px]">
+          <div className="flex flex-col h-full gap-4 w-[120px] ">
             {
               product.extraImages.map((image,index)=>{
-                return <SmallImage image={image}/>
+                return <SmallImage image={image} setPreviewImage={setPreviewImage}/>
               })
             }
             
           </div>
 
-          <div className="bg-[rgba(0,0,0,0.1)] px-2 h-full flex justify-center items-center">
-            <img className="flex-1" src={product.thumbnail} alt="image" />
+          <div className="bg-[rgba(0,0,0,0.1)]  px-2 h-full flex flex-1 justify-center items-center">
+            <img className="h-full" src={previwImage} alt="image" />
           </div>
+
         </div>
 
         {/* procuct description */}
@@ -50,6 +54,7 @@ export const ProductDetailPage = () => {
           <p className="text-[17px]">Select size</p>
           <div className="flex gap-2 mt-4 mb-8">
             {
+             
               product.sizes.map((size,index)=>{
                 return <SizeSelectOption text={size}/>
               })

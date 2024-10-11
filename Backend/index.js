@@ -116,9 +116,11 @@ app.post(
       fullDescription,
       category,
       subCategory,
-      sizes,
+      sizes
+    
     } = req.body;
 
+   
     //upload image to cloudinary
 
     const files = req.files;

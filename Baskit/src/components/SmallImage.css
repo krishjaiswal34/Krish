@@ -1,0 +1,19 @@
+.small-image{
+
+     background-color: rgba(0,0,0,0.1); 
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+flex:1;
+    height: 100px;
+    max-height: 120px;
+    cursor: pointer;
+
+  
+}
+
+.small-image img{
+    height: 100%;
+
+}
