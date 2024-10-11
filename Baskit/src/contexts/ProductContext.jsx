@@ -11,27 +11,27 @@ const [products,setProducts]=useState([]);
     setProducts(productsList);
    },[])
 
-    // useEffect(()=>{
-    //     const fetchingProducts=()=>{
-    //         try{
-    //             fetch('https://dummyjson.com/products/category/mens-shoes').then(async (response)=>{
-        
-    //             if(response.ok){
-    //                 const responseData=await response.json();
-    //                 console.log("response data:",responseData)
-    //                 setProducts(responseData.products)
-    //             }
-    //             })
-    //         }
-    //         catch(error){
-    //             console.log("Error during data fetch::",error)
-    //         }
-        
-        
-    //         }
-    //         fetchingProducts();
+useEffect(()=>{
 
-    // },[])
+const fetchProducts=async()=>{
+
+    try{
+        http://localhost:5174/
+
+        fetch('http://localhost:8000/products').then(async(response)=>{
+const responseData=await response.json();
+console.log("fetched products:",responseData)
+setProducts(responseData.products)
+        })
+    }catch(error){
+        console.log("Error fetching products:",error)
+    }
+}
+    fetchProducts();
+
+
+},[])
+
     return <ProductContext.Provider value={{
 
         products

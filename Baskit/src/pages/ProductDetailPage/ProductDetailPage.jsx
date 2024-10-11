@@ -18,7 +18,7 @@ export const ProductDetailPage = () => {
 
           <div className="flex flex-col gap-4 w-[300px]">
             {
-              product.images.map((image,index)=>{
+              product.extraImages.map((image,index)=>{
                 return <SmallImage image={image}/>
               })
             }
@@ -69,7 +69,7 @@ export const ProductDetailPage = () => {
 </div>
 <div className="border-2 py-6 px-4">
 {
-  product.description
+  product.fullDescription
 }
 </div>
 </div>

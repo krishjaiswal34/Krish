@@ -7,9 +7,9 @@ const [thumbnail,setThumbnail]=useState();
 const [extraImages,setExtraImages]=useState({});
 const [name,setName]=useState('');
 const [price,setPrice]=useState('');
-const sizes=new Set()
-const [category,setCategory]=useState('');
-const [subcategory,setSubCategory]=useState('');
+const [sizes,setSizes]=useState([]);
+const [category,setCategory]=useState('Men');
+const [subcategory,setSubCategory]=useState('Shirt');
 const [smallDescription,setSmallDescription]=useState('');
 const [fullDescription,setFullDescription]=useState('');
 
@@ -44,7 +44,8 @@ const handleSizeChange=(e)=>{
 
   const newSize=e.target.innerText;
   console.log("size changed",newSize);
-  sizes.add(newSize)
+  setSizes([...sizes,newSize])
+  
 
 }
 const handleCategoryChange=(e)=>{
@@ -72,17 +73,18 @@ const handleFormSubmit=async (e)=>{
 
 e.preventDefault();
 
-// if (!name || !price || !smallDescription || !fullDescription || !sizes || !category || !subcategory || !thumbnail) {
-//   alert("Please fill in all the fields.");
-//   return;
-// }
+if (!name || !price || !smallDescription || !fullDescription || !sizes || !category || !subcategory || !thumbnail) {
+  alert("Please fill in all the fields.");
+  return;
+}
 const formData=new FormData();
-  const sizesList=Array.from(sizes)
+  
+ 
   formData.append('name',name);
   formData.append('price',price)
   formData.append('smallDescription',smallDescription)
   formData.append('fullDescription',fullDescription)
-  formData.append('sizes',sizesList)
+  formData.append('sizes',sizes)
   formData.append('thumbnail',thumbnail)
   formData.append('category',category)
   formData.append('subCategory',subcategory)
@@ -207,11 +209,11 @@ const formData=new FormData();
    <div className="flex flex-col gap-2">
     <h1>Product sizes</h1>
     <div className="flex gap-4">
-        <ProductSize  text={"S"}  sizes={sizes}/>
-        <ProductSize text={"M"}  sizes={sizes}/>
-        <ProductSize text={"L"}  sizes={sizes}/>
-        <ProductSize text={"XL"}  sizes={sizes}/>
-        <ProductSize text={"XL"} sizes={sizes}/>
+        <ProductSize  text={"S"}  sizes={sizes} setSizes={setSizes}/>
+        <ProductSize text={"M"}  sizes={sizes} setSizes={setSizes}/>
+        <ProductSize text={"L"}  sizes={sizes} setSizes={setSizes}/>
+        <ProductSize text={"XL"}  sizes={sizes} setSizes={setSizes}/>
+        <ProductSize text={"XXL"} sizes={sizes} setSizes={setSizes}/>
       </div>
    </div>
       <div className="flex flex-col gap-2">

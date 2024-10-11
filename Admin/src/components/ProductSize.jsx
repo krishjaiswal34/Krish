@@ -1,18 +1,23 @@
 import React, { useState } from 'react'
 
-export const ProductSize = ({text,sizes}) => {
+export const ProductSize = ({text,sizes,setSizes}) => {
   console.log("sizes:",sizes)
+  
   const [isSelected,setIsSelected]=useState(false)
   return (
     <div onClick={(e)=>{
       
       if(isSelected){
-        sizes.delete(text)
-        setIsSelected(false)
+        
+        const newSizes=sizes.filter((size)=>size!==text);
+        console.log("filtered size",newSizes)
+
+setSizes(newSizes)
+setIsSelected(false)
       }else{
-        sizes.add(text)
+        setSizes([...sizes,text])
         setIsSelected(true)
-        onValueChange(e);
+       
       }
 
     }} className={`px-4 py-2 border-[rgba(0,0,0,0.07)] border-2 bg-[rgba(0,0,0,0.05)] ${isSelected &&'border-2 border-[rgba(0,0,0,0.7)]'}`}>
