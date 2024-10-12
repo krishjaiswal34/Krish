@@ -2,17 +2,21 @@ import React, { useEffect, useState } from "react";
 import { ProductExtraIamge } from "../components/ProductExtraIamge";
 import image from "../assets/Tshirt.png";
 import { ProductSize } from "../components/ProductSize";
+import {toast,ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 export const AddItemsView = () => {
 const [thumbnail,setThumbnail]=useState();
 const [extraImages,setExtraImages]=useState({});
 const [name,setName]=useState('');
-const [price,setPrice]=useState('');
+const [price,setPrice]=useState(0);
 const [sizes,setSizes]=useState([]);
 const [category,setCategory]=useState('Men');
 const [subcategory,setSubCategory]=useState('Shirt');
 const [smallDescription,setSmallDescription]=useState('');
 const [fullDescription,setFullDescription]=useState('');
-
+const notify=()=>{
+ return toast.success('Item successfully listed',{position:"top-right"})
+}
 const handleThumbnailChange=(e)=>{
   console.log("Thumbnail changed")
   const image=e.target.files[0]
@@ -36,8 +40,9 @@ setName(newName)
  
 }
 const handlePriceChange=(e)=>{
-  console.log("price changed");
-const newPrice=e.target.value;
+
+const newPrice=parseInt(e.target.value);
+console.log("price changed:",newPrice);
 setPrice(newPrice)
 }
 const handleSizeChange=(e)=>{
@@ -64,7 +69,7 @@ const handleSmallDescriptionChange=(e)=>{
   setSmallDescription(newSmallDescription)
 }
 const handleFullDescriptionChange=(e)=>{
-  console.log("full desc changed")
+  console.log("full desc changed",)
 const newFullDescription=e.target.value;
 setFullDescription(newFullDescription)
 }
@@ -72,7 +77,7 @@ setFullDescription(newFullDescription)
 const handleFormSubmit=async (e)=>{
 
 e.preventDefault();
-
+notify();
 if (!name || !price || !smallDescription || !fullDescription || !sizes || !category || !subcategory || !thumbnail) {
   alert("Please fill in all the fields.");
   return;
@@ -129,7 +134,7 @@ useEffect(()=>{
 
   return (
     <form onSubmit={handleFormSubmit} className="py-6 px-10 text-start flex flex-col gap-4">
-
+<ToastContainer/>
       {/* product Thumbnail */}
      <div className="flex flex-col gap-2">
 

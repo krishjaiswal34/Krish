@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import App from '../App'
 import { HomePage } from '../pages/HomePage/HomePage'
 import { ProductDetailPage } from '../pages/ProductDetailPage/ProductDetailPage'
+import CartPage from '../pages/Cartpage/CartPage'
 
 
 export const routes=createBrowserRouter([
@@ -16,6 +17,9 @@ children:[
     },{
         path:'product-detail',
         element:<ProductDetailPage/>
+    },{
+        path:'cart',
+        element:<CartPage/>
     }
 ]
     },
@@ -29,5 +33,6 @@ children:[
             Login page , please login...
         </div>
     },
+  
     
 ])

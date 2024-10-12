@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import SizeSelectOption from "../../components/SizeSelectOption";
 import { Button } from "../../components/Button";
-import { SmallImage } from "../../components/SmallImage";
+import { SmallImage } from "../../components/SmallImage/SmallImage"
 
 export const ProductDetailPage = () => {
   const loacation = useLocation();
