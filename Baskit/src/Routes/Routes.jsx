@@ -4,6 +4,8 @@ import App from '../App'
 import { HomePage } from '../pages/HomePage/HomePage'
 import { ProductDetailPage } from '../pages/ProductDetailPage/ProductDetailPage'
 import CartPage from '../pages/Cartpage/CartPage'
+import { LoginPage } from '../pages/LoginPage/LoginPage'
+import { SignupPage } from '../pages/SignupPage/SignupPage'
 
 
 export const routes=createBrowserRouter([
@@ -24,14 +26,12 @@ children:[
 ]
     },
     {
-        path:'signup',
-        element:<div>Signup page , please signup..</div>
+        path:'/signup',
+        element:<SignupPage/>
     },
     {
-        path:'login',
-        element:<div>
-            Login page , please login...
-        </div>
+        path:'/login',
+        element:<LoginPage/>
     },
   
     

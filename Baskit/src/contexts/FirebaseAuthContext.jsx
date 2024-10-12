@@ -1,12 +1,14 @@
 import { firebaseApp } from '../utils/FirebaseApp';
-import { createContext } from ("react");
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
+import { createContext } from 'react';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,onAuthStateChanged } from 'firebase/auth'
 
 
 const firebaseAuth = getAuth(firebaseApp);
 
 const FirebaseAuthContext = createContext();
 const FirebaseAuthContextProvider = ({ children }) => {
+
+
 
     const registerUserWithEmailAndPassword = async (email, password) => {
 
@@ -38,7 +40,8 @@ const FirebaseAuthContextProvider = ({ children }) => {
     }
 
 
-    return <FirebaseAuthContext.Provider value={{registerUserWithEmailAndPassword,loginUserWithEmailAndPassword}} />
+    return <FirebaseAuthContext.Provider value={{registerUserWithEmailAndPassword,loginUserWithEmailAndPassword}} >
+        {children}
+    </FirebaseAuthContext.Provider>
 }
-
-export { FirebaseAuthContext, FirebaseAuthContextProvider }
+export  {FirebaseAuthContext,FirebaseAuthContextProvider}
