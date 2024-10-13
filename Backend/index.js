@@ -47,7 +47,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-
 //product list route
 app.post(
   "/upload",
@@ -212,6 +211,24 @@ app.post("/addToCart", async (req, res) => {
     return res.send("Server error");
   }
 });
+//getting cart products fro specific user
+app.get("/cart", async (req, res) => {
 
+try{
+  const userAuthId = req.query.userAuthId;
+  console.log("accessing cart data of userAuthId", userAuthId);
+  const userData = await userModel.findOne({ userAuthId });
+if(userData){
+  
+  console.log("userData:", userData);
+  return res.status(200).json({"cart":userData.cart})
+}else{
+  return res.json({"error":"User Cart not foutn"})
+}
+}catch(err){
+  return res.json({"err":"Server error"});
+}
+
+});
 
 app.listen(PORT, () => console.log("Server started at :", PORT));

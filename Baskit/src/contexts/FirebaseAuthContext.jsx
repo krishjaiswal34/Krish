@@ -1,17 +1,20 @@
 import { firebaseApp } from "../utils/FirebaseApp";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
 } from "firebase/auth";
+import { addUserToDB } from "../utils/addUserToDB";
 
 const firebaseAuth = getAuth(firebaseApp);
 
 const FirebaseAuthContext = createContext();
+
 const FirebaseAuthContextProvider = ({ children }) => {
-  const [logedInUser,setLogedInUser]=useState(null);
+  const [logedInUser, setLogedInUser] = useState(null);
+
   const registerUserWithEmailAndPassword = async (email, password) => {
     try {
       const user = await createUserWithEmailAndPassword(
@@ -19,14 +22,17 @@ const FirebaseAuthContextProvider = ({ children }) => {
         email,
         password
       )
-        .then((user) => {
-          console.log("Registered user:", user);
+        .then(async (usr) => {
+          const { uid } = usr.user;
+          console.log("Registered user:", uid);
+          addUserToDB(uid);
         })
         .catch((error) => console.log("Error register user:", error));
     } catch (error) {
       alert("Unexpected Error !");
     }
   };
+
   const loginUserWithEmailAndPassword = async (email, password) => {
     try {
       const user = await signInWithEmailAndPassword(
@@ -47,24 +53,18 @@ const FirebaseAuthContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-
-    const logedInUser = onAuthStateChanged(firebaseAuth,(user)=>{
-     
-console.log("logedInUser::",user)
-setLogedInUser(user)
+    const logedInUser = onAuthStateChanged(firebaseAuth, (user) => {
+      console.log("logedInUser::", user);
+      setLogedInUser(user);
     });
-
-   
   }, []);
-
-
 
   return (
     <FirebaseAuthContext.Provider
       value={{
         registerUserWithEmailAndPassword,
         loginUserWithEmailAndPassword,
-        logedInUser
+        logedInUser,
       }}
     >
       {children}

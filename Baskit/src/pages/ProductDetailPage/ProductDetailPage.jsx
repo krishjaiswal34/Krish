@@ -1,20 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import SizeSelectOption from "../../components/SizeSelectOption";
 import { Button } from "../../components/Button";
 import { SmallImage } from "../../components/SmallImage/SmallImage"
+import {ProductContext} from '../../contexts/ProductContext'
+import {toast,ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 export const ProductDetailPage = () => {
   const loacation = useLocation();
   const { product } = loacation.state || {};
   const [previwImage,setPreviewImage]=useState(product.thumbnail);
+  const {addProductToUserCart,logedInUser} = useContext(ProductContext)
 
   console.log("product from product detail::",product)
+const notify=()=>toast.success("Added to cart",{position:"top-right"})
+  const handleAddToCartBtnClick=()=>{
+    if(logedInUser){
+      addProductToUserCart(product);
+    notify();
+    }else{
+      notify();
+    }
+  }
   useEffect(()=>{
     window.scrollTo(0,0)
   })
   return (
     <div>
+      <ToastContainer/>
       <hr />
       <div className="flex gap-10 w-full h-[80vh] py-8">
         <div className="w-1/2 flex gap-4 h-full">
@@ -62,7 +76,9 @@ export const ProductDetailPage = () => {
             
           </div>
 
-          <Button text={"ADD TO CART"} />
+          <button onClick={handleAddToCartBtnClick} className='py-2 px-4 bg-black text-white'>
+        ADD TO CART
+        </button>
         </div>
       </div>
 
