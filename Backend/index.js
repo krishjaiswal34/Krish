@@ -231,4 +231,22 @@ if(userData){
 
 });
 
+app.post('/removeProduct',async (req,res)=>{
+
+try{
+
+  const {userAuthId,product_id} =req.body;
+
+  const result=await userModel.findOneAndUpdate({userAuthId},{$pull:{cart:{"product_id":product_id}}})
+  if (result) {
+    return res.send("Product removed from cart");
+  } else {
+    return res.status(404).send("User or product not found");
+  }
+
+
+}catch(err){
+  return res.send("Server error")
+}
+})
 app.listen(PORT, () => console.log("Server started at :", PORT));

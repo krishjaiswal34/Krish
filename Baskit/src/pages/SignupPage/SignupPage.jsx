@@ -1,34 +1,47 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import MainHeading from '../../components/MainHeading';
 import {toast,ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 import { FirebaseAuthContext } from '../../contexts/FirebaseAuthContext';
 
 export const SignupPage = () => {
 
   const navigate=useNavigate();
 
-  const {registerUserWithEmailAndPassword}=useContext(FirebaseAuthContext)
+  const {registerUserWithEmailAndPassword,logedInUser}=useContext(FirebaseAuthContext)
   const [email,setEmail]=useState('');
   const [password,setPassword]=useState('');
   const [firstName,setFirstName]=useState('');
   const [lastName,setLastName]=useState('');
   const successNotify=()=>toast.success("Signup successful");
+  const warnNotify=()=>toast.error("Invalid Input");
 
 
   const handleSignUpBtnclick=async(e)=>{
+
+
     e.preventDefault();
+  
 const user=await registerUserWithEmailAndPassword(email,password)
 if(user){
   successNotify();
+}else{
+warnNotify();
 }
 
   }
+
+  useEffect(()=>{
+    if(logedInUser){
+      navigate('/')
+    }
+  },[])
   return (
     <div className='flex min-h-[100vh] max-w-[1280px] flex-col items-center justify-center'>
 <ToastContainer/>
 <MainHeading text={"SIGN UP"}/>
-<div class="form text-start">
+<form onSubmit={handleSignUpBtnclick} class="form text-start">
 
 <div className='flex gap-2 text-start'>
 
@@ -42,7 +55,7 @@ if(user){
 </div>
 <div class="inputForm">
   {/* image */}
-  <input onChange={(e)=>setFirstName(e.target.value)} placeholder="Enter  first name" class="input" type="text"/>
+  <input required onChange={(e)=>setFirstName(e.target.value)} placeholder="Enter  first name" class="input" type="text"/>
   
 </div>
 </div>
@@ -53,7 +66,7 @@ if(user){
 <label>Last name </label></div>
 <div class="inputForm">
   {/* image */}
-  <input onChange={(e)=>setLastName(e.target.value)} placeholder="Enter  last name" class="input" type="text"/>
+  <input required onChange={(e)=>setLastName(e.target.value)} placeholder="Enter  last name" class="input" type="text"/>
   
 </div>
 </div>
@@ -65,7 +78,7 @@ if(user){
       <label>Email </label></div>
       <div class="inputForm">
         {/* image */}
-        <input onChange={(e)=>setEmail(e.target.value)} placeholder="Enter your Email" class="input" type="text"/>
+        <input required onChange={(e)=>setEmail(e.target.value)} placeholder="Enter your Email" class="input" type="text"/>
         
       </div>
     
@@ -73,33 +86,35 @@ if(user){
       <label>Password </label></div>
       <div class="inputForm">
       {/* image       */}
-        <input onChange={(e)=>setPassword(e.target.value)} placeholder="Enter your Password" class="input" type="password"/>
+        <input required onChange={(e)=>setPassword(e.target.value)} placeholder="Enter your Password" class="input" type="password"/>
       </div>
     
     <div class="flex-row">
       <div>
-      <input type="radio"/>
+      <input required type="radio"/>
       <label>Remember me </label>
       </div>
       <span class="span">Forgot password?</span>
     </div>
-    <button onClick={handleSignUpBtnclick} class="button-submit">Sign Up</button>
-    <p class="p">Don't have an account? <span onClick={()=>navigate('/login')} class="span">Sign Up</span>
+    <button type='submit'  class="button-submit">Sign Up</button>
+    <p class="p">Don't have an account? <span onClick={()=>navigate('/login')} class="span">Login</span></p>
 
-    </p><p class="p line">Or With</p>
+    {/* </p><p class="p line">Or With</p>
 
     <div class="flex-row">
-      <button class="btn google">
-{/* image */}
+      <div class="btn google">
+
    
         Google 
         
-      </button><button class="btn apple">
-{/* image */}
+      </div><div class="btn apple">
+
 
         Apple 
         
-</button></div></div>
+</div></div>*/}
+
+</form> 
 
 
     </div>

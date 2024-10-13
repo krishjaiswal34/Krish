@@ -1,39 +1,53 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./LoginPage.css";
 import { useNavigate } from "react-router-dom";
 import MainHeading from "../../components/MainHeading";
 import { FirebaseAuthContext } from "../../contexts/FirebaseAuthContext";
 import {toast,ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const {loginUserWithEmailAndPassword}=useContext(FirebaseAuthContext)
-  const [email,setEmail]=useState('');
-  const [password,setPassword]=useState('');
-  const successNotify=()=>toast.success("Login successful");
+  const { loginUserWithEmailAndPassword,logedInUser } = useContext(FirebaseAuthContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const successNotify = () => toast.success("Login successful");
+  const warnNotify = () => toast.error("Wrong Email or password");
 
-
-  const handleLoginBtnclick=async(e)=>{
+  const handleLoginBtnclick = async (e) => {
     e.preventDefault();
-const user=await loginUserWithEmailAndPassword(email,password)
-if(user){
-  successNotify();
-}
 
-  }
+    const user = await loginUserWithEmailAndPassword(email, password);
+    if (user) {
+      successNotify();
+    } else {
+      warnNotify();
+    }
+  };
 
+  useEffect(()=>{
+    if(logedInUser){
+      navigate('/')
+    }
+  },[logedInUser])
   return (
     <div className="flex min-h-[100vh] max-w-[1280px] flex-col items-center justify-center">
-      <ToastContainer/>
+      <ToastContainer />
       <MainHeading text={"LOGIN"} />
-
-      <div class="form text-start">
+      <form onSubmit={handleLoginBtnclick} class="form text-start">
         <div class="flex-column">
           <label>Email </label>
         </div>
         <div class="inputForm">
           {/* image */}
-          <input onChange={(e)=>setEmail(e.target.value)} placeholder="Enter your Email" class="input" type="text" />
+          <input
+            required
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Enter your Email"
+            class="input"
+            type="text"
+          />
         </div>
 
         <div class="flex-column">
@@ -41,7 +55,9 @@ if(user){
         </div>
         <div class="inputForm">
           {/* image       */}
-          <input onChange={(e)=>setPassword(e.target.value)}
+          <input
+            required
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your Password"
             class="input"
             type="password"
@@ -50,31 +66,36 @@ if(user){
 
         <div class="flex-row">
           <div>
-            <input type="radio" />
+            <input required type="radio" />
             <label>Remember me </label>
           </div>
           <span class="span">Forgot password?</span>
         </div>
-        <button onClick={handleLoginBtnclick} class="button-submit">Log In</button>
+        <button type="submit" class="button-submit">
+          Login{" "}
+        </button>
         <p class="p">
           Don't have an account?{" "}
           <span onClick={() => navigate("/signup")} class="span">
             Sign Up
           </span>
         </p>
-        <p class="p line">Or With</p>
 
+        {/* </p><p class="p line">Or With</p>
+    
         <div class="flex-row">
-          <button class="btn google">
-            {/* image */}
-            Google
-          </button>
-          <button class="btn apple">
-            {/* image */}
-            Apple
-          </button>
-        </div>
-      </div>
+          <div class="btn google">
+    
+       
+            Google 
+            
+          </div><div class="btn apple">
+    
+    
+            Apple 
+            
+    </div></div>*/}
+      </form>
     </div>
   );
 };

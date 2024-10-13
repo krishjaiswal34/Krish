@@ -1,15 +1,14 @@
 import { createContext, useEffect, useState } from "react";
 
 import { products as productsList } from "../assets/MockData";
-import {onAuthStateChanged} from 'firebase/auth'
+import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebaseAuth";
 
 const ProductContext = createContext();
 const ProductContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
-  const [logedInUser,setLogedInUser]=useState();
-
+  const [logedInUser, setLogedInUser] = useState();
 
   const fetchProducts = async () => {
     try {
@@ -17,61 +16,81 @@ const ProductContextProvider = ({ children }) => {
         const responseData = await response.json();
         console.log("fetched products:", responseData);
         setProducts(responseData.products);
-    
       });
     } catch (error) {
       console.log("Error fetching products:", error);
     }
   };
 
-  const fetchCartProducts=async()=>{
+  const fetchCartProducts = async () => {
+    fetch(`http://localhost:8000/cart?userAuthId=${logedInUser.uid}`).then(
+      async (response) => {
+        if (response.ok) {
+          const responseData = await response.json();
+          console.log("Cart data retrieved", responseData.cart);
+          setCartProducts(responseData.cart);
+        }
+      }
+    );
+  };
 
-        fetch(`http://localhost:8000/cart?userAuthId=${logedInUser.uid}`).then(async(response)=>{
-          if(response.ok){
-            const responseData=await response.json();
-            console.log("Cart data retrieved",responseData.cart)
-            setCartProducts(responseData.cart)
-          }
-        })
+  const addProductToUserCart = (product) => {
+    const userAuthId = logedInUser.uid;
+
+    fetch("http://localhost:8000/addToCart", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        userAuthId: userAuthId,
+        product: product,
+      }),
+    })
+      .then((product) => {
+        fetchCartProducts();
+        alert("Added to cart");
+
+      }
       
-    
+      )
+      .catch((err) => alert("Error adding to cart"));
+  };
 
-  }
+  const removeProductFromUserCart = (product_id) => {
+    const userAuthId = logedInUser.uid;
 
-  const addProductToUserCart=(product)=>{
-
-const userAuthId=logedInUser.uid;
-
-    fetch('http://localhost:8000/addToCart',{
-        method:"POST",
-        headers:{
-            'content-type':'application/json'
-        },
-        body:JSON.stringify({
-            "userAuthId":userAuthId,
-            "product":product
-        })
-    }).then((product)=>alert("Added to cart")).catch((err)=>alert("Error adding to cart"))
-    
-    } 
-
-useEffect(()=>{
-  const userResult=onAuthStateChanged(firebaseAuth,(user)=>{
-    setLogedInUser(user)
-
-  })
-
-})
-
+    fetch("http://localhost:8000/removeProduct", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        userAuthId: userAuthId,
+        product_id: product_id,
+      }),
+    })
+      .then(() => {
+        alert("Product removed");
+        fetchCartProducts();
+      })
+      .catch(() => alert("Unexpected error"));
+  };
 
   useEffect(() => {
+    const userResult = onAuthStateChanged(firebaseAuth, (user) => {
+      setLogedInUser(user);
+    });
+  });
 
+  useEffect(() => {
     fetchProducts();
 
-    if(logedInUser){
+    if (logedInUser) {
       fetchCartProducts();
+    }else{
+      setCartProducts(null)
     }
-   
   }, [logedInUser]);
 
   return (
@@ -80,10 +99,9 @@ useEffect(()=>{
         products,
         cartProducts,
         addProductToUserCart,
-        addProductToUserCart,
-        logedInUser
-        
        
+        logedInUser,
+        removeProductFromUserCart,
       }}
     >
       {children}

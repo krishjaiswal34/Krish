@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  signOut
 } from "firebase/auth";
 import { addUserToDB } from "../utils/addUserToDB";
 
@@ -51,6 +52,9 @@ const FirebaseAuthContextProvider = ({ children }) => {
       alert("Unexpected Error");
     }
   };
+  const logOut=async()=>{
+    await signOut(firebaseAuth);
+  }
 
   useEffect(() => {
     const logedInUser = onAuthStateChanged(firebaseAuth, (user) => {
@@ -65,6 +69,7 @@ const FirebaseAuthContextProvider = ({ children }) => {
         registerUserWithEmailAndPassword,
         loginUserWithEmailAndPassword,
         logedInUser,
+        logOut
       }}
     >
       {children}

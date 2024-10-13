@@ -18,7 +18,8 @@ children:[
         element:<HomePage/>
     },{
         path:'product-detail',
-        element:<ProductDetailPage/>
+        element:<ProductDetailPage/>,
+     
     },{
         path:'cart',
         element:<CartPage/>

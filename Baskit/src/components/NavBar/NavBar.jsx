@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Person from "@mui/icons-material/PersonOutline";
 import Cart from "@mui/icons-material/ShoppingCartOutlined";
 import { CartIcon } from "../CartIcon";
@@ -9,8 +9,9 @@ import { ProductContext } from "../../contexts/ProductContext";
 import { FirebaseAuthContext } from "../../contexts/FirebaseAuthContext";
 
 export const NavBar = () => {
-  const { logedInUser } = useContext(FirebaseAuthContext);
+  const { logedInUser,logOut} = useContext(FirebaseAuthContext);
   const [isProfilePopup,setIsProfilePopup]=useState(false)
+  const navigate=useNavigate();
 
   return (
     <div className="flex justify-between items-center py-4 w-full">
@@ -34,11 +35,11 @@ export const NavBar = () => {
             </div>
             <div className={`profile-popup absolute top-[110%] right-0 z-10 flex flex-col items-end ${!isProfilePopup?'hidden':'visible'} bg-white py-4 px-3 border rounded-md shadow-md`}>
               <h1>{logedInUser.email}</h1>
-              <div className="flex gap-1 text-red-800 font-semibold"> Logout</div>
+              <div onClick={logOut} className="flex gap-1 text-red-800 font-semibold cursor-pointer"> Logout</div>
             </div>
           </div>
         ) : (
-          <Person className="text-lg" />
+          <div onClick={()=>navigate('/login')}><Person  className="text-lg cursor-pointer" /></div>
         )}
       </div>
     </div>

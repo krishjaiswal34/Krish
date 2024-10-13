@@ -10,10 +10,11 @@ const CartPage = () => {
   const [subtotalPrice, setSubtotalPrice] = useState(0);
 
   const shippingFees = 15;
-
+console.log("cart product cart page:",cartProducts)
   useEffect(() => {
     var updatedPrice = subtotalPrice;
-    cartProducts.forEach((product) => {
+ cartProducts?.forEach((pr) => {
+const product=pr.product
       const price = parseInt(product.price);
       console.log("price::", price);
       updatedPrice = updatedPrice + price;
@@ -27,8 +28,10 @@ const CartPage = () => {
       <div className="w-full min-h-[100vh] flex gap-8 mt-5">
         {/*all cart items list */}
         <div className="flex-1 flex flex-col gap-8 items-start">
-          {cartProducts.map((product, index) => {
-            return <CartItemCard key={index} product={product} />;
+          {cartProducts?.map((pr, index) => {
+            
+            const {product,product_id}=pr
+            return <CartItemCard key={index} product={product} product_id={product_id}/>;
           })}
         </div>
 
