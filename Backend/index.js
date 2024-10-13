@@ -4,7 +4,10 @@ const dotenv = require("dotenv");
 const multer = require("multer");
 const cors = require("cors");
 const cloudinary = require("cloudinary").v2;
-const fs=require('fs')
+const fs = require("fs");
+const ProductModel = require("./models/productModel");
+const userModel = require("./models/userModel");
+const { v4: uuidv4 } = require("uuid");
 dotenv.config();
 //creating express app
 
@@ -16,61 +19,6 @@ const PORT = 8000;
 //connecting server to DB
 
 mongoose.connect("mongodb://127.0.0.1:27017/BaskitDB");
-//product schema
-const productSchema = new mongoose.Schema(
-  {
-    name: {
-      type: String,
-      required: true,
-    },
-    price: {
-      type: String,
-      required: true,
-    },
-
-    sizes: [String],
-    smallDescription: {
-      type: String,
-      required: true,
-    },
-    thumbnail: { type: String, required: true },
-    extraImages: [String],
-    fullDescription: {
-      type: String,
-      required: true,
-    },
-    reviews: [
-      {
-        userEmail: {
-          type: String,
-        },
-        userName: { type: String },
-        rating: { type: Number },
-        comment: { type: String },
-        createdAt: {
-          type: Date,
-          default: Date.now,
-        },
-      },
-      {
-        timestamps: true,
-      },
-    ],
-    category: {
-      type: String,
-      required: true,
-    },
-    subCategory: {
-      type: String,
-      required: true,
-    },
-  },
-  {
-    timestamps: true,
-  }
-);
-//Product model
-const ProductModel = mongoose.model("products", productSchema);
 
 //congig Cloudinary
 
@@ -99,8 +47,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-//express route for image upload
 
+//product list route
 app.post(
   "/upload",
   upload.fields([
@@ -116,11 +64,9 @@ app.post(
       fullDescription,
       category,
       subCategory,
-      sizes
-    
+      sizes,
     } = req.body;
 
-   
     //upload image to cloudinary
 
     const files = req.files;
@@ -141,12 +87,10 @@ app.post(
             folder: "clothes",
           },
           (error, result) => {
-            fs.unlinkSync(thumbnailFile.path)
+            fs.unlinkSync(thumbnailFile.path);
             if (error) {
               return res.status(500).json({ "cloudinaryErro:": error });
-              
             }
-
           }
         );
         const thumbnailCloudinaryUrl = thumbnailImageResult.secure_url;
@@ -162,7 +106,7 @@ app.post(
               folder: "clothes",
             },
             (error, result) => {
-                fs.unlinkSync(file.path)
+              fs.unlinkSync(file.path);
               if (error) {
                 return res
                   .status(401)
@@ -209,7 +153,6 @@ app.post(
   }
 );
 
-//routes
 //getting all products
 app.get("/products", async (req, res) => {
   const products = await ProductModel.find({});
@@ -217,20 +160,58 @@ app.get("/products", async (req, res) => {
   return res.json({ products: products });
 });
 
-//listing product
-app.post("/listProduct", async (req, res) => {
-  const body = req.body;
-  const { name, price } = body;
-  console.log("body:", body);
-  const listedProduct = await ProductModel.create({
-    name: name,
-    price: price,
-  });
-  return res.send("Product Listed >>>");
+//user create route
+app.post("/user", async (req, res) => {
+  const { userAuthId } = req.body;
+  console.log("userAuthId::", userAuthId);
+  try {
+    const user = await userModel
+      .create({ userAuthId: userAuthId })
+      .then((user) => {
+        console.log("user created :", user);
+        return res.send("User created");
+      })
+      .catch((err) => {
+        console.log("error creating user", err);
+        return res.send("error creating user", err);
+      });
+  } catch (error) {
+    console.log("Server error");
+    return res.send("Server error");
+  }
 });
+
 //adding product to the cart
-app.post("/addToCart", (req, res) => {
-  return res.send("Product adding to cart >>>");
+app.post("/addToCart", async (req, res) => {
+  const { userAuthId, product } = req.body;
+  const newProduct = {
+    product_id: uuidv4(),
+    product: product,
+  };
+  console.log(
+    "userAuthId:",
+    userAuthId,
+    "product:",
+    product,
+    "newProduct:",
+    newProduct
+  );
+  try {
+    const result = await userModel
+      .findOneAndUpdate({ userAuthId }, { $push: { cart: newProduct } })
+      .then((pr) => {
+        console.log("Product added:", pr);
+        return res.send("product added");
+      })
+      .catch((err) => {
+        console.log("Error adding product tot cart");
+        return res.send("Error adding product to cart");
+      });
+  } catch (err) {
+    console.log("Server eror");
+    return res.send("Server error");
+  }
 });
+
 
 app.listen(PORT, () => console.log("Server started at :", PORT));
