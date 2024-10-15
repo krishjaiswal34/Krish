@@ -8,7 +8,29 @@ const userSchema=new mongoose.Schema({
         type:String,
         required:true
     },
-    cart:[],
+    cart:[
+        {
+            product_id:{
+                type:String,
+                required:true,
+            },
+            product:{
+                type:Object,
+                required:true
+            },
+            sizeToBuy:{
+                type:String,
+                required:true
+            },
+            quantityToBuy:{
+                type:Number,
+                required:true
+            }
+
+
+
+        }
+    ],
     orders:[]
 
 })

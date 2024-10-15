@@ -25,7 +25,7 @@ export const NavBar = () => {
         <p>About</p>
         <p>Contact us</p>
         <p>|</p>
-        <i class="fa-solid fa-magnifying-glass"></i>
+        
 
         <CartIcon />
         {logedInUser ? (

@@ -6,6 +6,7 @@ import { ProductCard } from '../../components/ProductCard/ProductCard'
 import { ProductList } from '../../components/ProductList/ProductList'
 import { ProductContext } from '../../contexts/ProductContext'
 
+
 export const HomePage = () => {
 
   const {products} =useContext(ProductContext)
@@ -28,6 +29,7 @@ export const HomePage = () => {
 
 
 <ProductList products={products}/>
+
 
    </div>
   )

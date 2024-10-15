@@ -34,7 +34,7 @@ const ProductContextProvider = ({ children }) => {
     );
   };
 
-  const addProductToUserCart = (product) => {
+  const addProductToUserCart = (product, sizeToBuy, quantityToBuy) => {
     const userAuthId = logedInUser.uid;
 
     fetch("http://localhost:8000/addToCart", {
@@ -45,15 +45,14 @@ const ProductContextProvider = ({ children }) => {
       body: JSON.stringify({
         userAuthId: userAuthId,
         product: product,
+        sizeToBuy: sizeToBuy,
+        quantityToBuy: quantityToBuy,
       }),
     })
       .then((product) => {
         fetchCartProducts();
         alert("Added to cart");
-
-      }
-      
-      )
+      })
       .catch((err) => alert("Error adding to cart"));
   };
 
@@ -77,6 +76,26 @@ const ProductContextProvider = ({ children }) => {
       .catch(() => alert("Unexpected error"));
   };
 
+  const updateCartProduct = (product_id, newQuantity) => {
+    const userAuthId = logedInUser.uid;
+
+    fetch("http://localhost:8000/updateCartProduct", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        userAuthId: userAuthId,
+        product_id: product_id,
+        newQuantity: newQuantity,
+      }),
+    })
+      .then(() => {
+        alert("Updated");
+        fetchCartProducts();
+      })
+      .catch(() => alert("Unexpected error"));
+  };
   useEffect(() => {
     const userResult = onAuthStateChanged(firebaseAuth, (user) => {
       setLogedInUser(user);
@@ -88,8 +107,8 @@ const ProductContextProvider = ({ children }) => {
 
     if (logedInUser) {
       fetchCartProducts();
-    }else{
-      setCartProducts(null)
+    } else {
+      setCartProducts(null);
     }
   }, [logedInUser]);
 
@@ -99,9 +118,10 @@ const ProductContextProvider = ({ children }) => {
         products,
         cartProducts,
         addProductToUserCart,
-       
+
         logedInUser,
         removeProductFromUserCart,
+        updateCartProduct,
       }}
     >
       {children}

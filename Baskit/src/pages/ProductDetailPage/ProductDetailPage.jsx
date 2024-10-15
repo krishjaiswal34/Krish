@@ -13,14 +13,17 @@ export const ProductDetailPage = () => {
   const [previwImage, setPreviewImage] = useState(product && product.thumbnail);
   const { addProductToUserCart, logedInUser } = useContext(ProductContext);
   const [descTab, setDescTab] = useState("description");
+  const [sizeToBuy,setSizeToBuy]=useState('M');
+  const [quantityToBuy,setQuantityToBuy]=useState(1)
 
   console.log("product from product detail::", product);
   const successNotify = () =>
     toast.success("Added to cart", { position: "top-right" });
   const warnNotify = () => toast.warning("Please login to your account");
+
   const handleAddToCartBtnClick = () => {
     if (logedInUser) {
-      addProductToUserCart(product);
+      addProductToUserCart(product,sizeToBuy,quantityToBuy);
       successNotify();
     } else {
       warnNotify();
@@ -70,7 +73,7 @@ export const ProductDetailPage = () => {
           <div className="flex gap-2 mt-4 mb-8">
             {product &&
               product.sizes.map((size, index) => {
-                return <SizeSelectOption text={size} />;
+                return <SizeSelectOption text={size} setSizeToBuy={setSizeToBuy} sizeToBuy={sizeToBuy} />;
               })}
           </div>
 

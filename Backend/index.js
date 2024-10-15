@@ -8,6 +8,7 @@ const fs = require("fs");
 const ProductModel = require("./models/productModel");
 const userModel = require("./models/userModel");
 const { v4: uuidv4 } = require("uuid");
+const { error } = require("console");
 dotenv.config();
 //creating express app
 
@@ -182,22 +183,25 @@ app.post("/user", async (req, res) => {
 
 //adding product to the cart
 app.post("/addToCart", async (req, res) => {
-  const { userAuthId, product } = req.body;
-  const newProduct = {
-    product_id: uuidv4(),
-    product: product,
-  };
-  console.log(
-    "userAuthId:",
-    userAuthId,
-    "product:",
-    product,
-    "newProduct:",
-    newProduct
-  );
+  const { userAuthId, product, sizeToBuy, quantityToBuy } = req.body;
+
+  const product_id = uuidv4();
+
   try {
     const result = await userModel
-      .findOneAndUpdate({ userAuthId }, { $push: { cart: newProduct } })
+      .findOneAndUpdate(
+        { userAuthId },
+        {
+          $push: {
+            cart: {
+              product_id,
+              product,
+              sizeToBuy,
+              quantityToBuy,
+            },
+          },
+        }
+      )
       .then((pr) => {
         console.log("Product added:", pr);
         return res.send("product added");
@@ -213,40 +217,64 @@ app.post("/addToCart", async (req, res) => {
 });
 //getting cart products fro specific user
 app.get("/cart", async (req, res) => {
-
-try{
-  const userAuthId = req.query.userAuthId;
-  console.log("accessing cart data of userAuthId", userAuthId);
-  const userData = await userModel.findOne({ userAuthId });
-if(userData){
-  
-  console.log("userData:", userData);
-  return res.status(200).json({"cart":userData.cart})
-}else{
-  return res.json({"error":"User Cart not foutn"})
-}
-}catch(err){
-  return res.json({"err":"Server error"});
-}
-
+  try {
+    const userAuthId = req.query.userAuthId;
+    console.log("accessing cart data of userAuthId", userAuthId);
+    const userData = await userModel.findOne({ userAuthId });
+    if (userData) {
+      console.log("userData:", userData);
+      return res.status(200).json({ cart: userData.cart });
+    } else {
+      return res.json({ error: "User Cart not foutn" });
+    }
+  } catch (err) {
+    return res.json({ err: "Server error" });
+  }
 });
 
-app.post('/removeProduct',async (req,res)=>{
+app.post("/removeProduct", async (req, res) => {
+  try {
+    const { userAuthId, product_id } = req.body;
 
-try{
-
-  const {userAuthId,product_id} =req.body;
-
-  const result=await userModel.findOneAndUpdate({userAuthId},{$pull:{cart:{"product_id":product_id}}})
-  if (result) {
-    return res.send("Product removed from cart");
-  } else {
-    return res.status(404).send("User or product not found");
+    const result = await userModel.findOneAndUpdate(
+      { userAuthId },
+      { $pull: { cart: { product_id: product_id } } }
+    );
+    if (result) {
+      return res.send("Product removed from cart");
+    } else {
+      return res.status(404).send("User or product not found");
+    }
+  } catch (err) {
+    return res.send("Server error");
   }
-
-
-}catch(err){
-  return res.send("Server error")
-}
-})
+});
+app.post("/updateCartProduct", async (req, res) => {
+  try {
+    const { product_id, userAuthId, newQuantity } = req.body;
+    console.log(
+      "update:",
+      "product_id:",
+      product_id,
+      "quantity :",
+      newQuantity,
+      "userId:",
+      userAuthId
+    );
+    const updatedProduct = await userModel.findOneAndUpdate(
+      { userAuthId, "cart.product_id": product_id },
+      { $set: { "cart.$.quantityToBuy": newQuantity } },
+      { new: true }
+    );
+    console.log("update product :", updatedProduct);
+    if (updatedProduct) {
+      return res.status(200).send("Successfully updated");
+    } else {
+      return res.status(400).send("Error updating cart product");
+    }
+  } catch (err) {
+    console.log("Server error");
+    return res.send(500).send("Server error");
+  }
+});
 app.listen(PORT, () => console.log("Server started at :", PORT));
