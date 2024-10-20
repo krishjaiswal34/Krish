@@ -65,6 +65,7 @@ app.post(
       category,
       subCategory,
       sizes,
+      isFeatured,
     } = req.body;
 
     //upload image to cloudinary
@@ -133,6 +134,7 @@ app.post(
             subCategory: subCategory,
             thumbnail: thumbnailCloudinaryUrl,
             extraImages: extraImagesCloudinaryUrls,
+            isFeatured: isFeatured,
           })
             .then((result) => {
               console.log("mongodb result::", result);
@@ -169,15 +171,15 @@ app.post("/user", async (req, res) => {
       .create({ userAuthId: userAuthId })
       .then((user) => {
         console.log("user created :", user);
-        return res.send("User created");
+        return res.json("User created");
       })
       .catch((err) => {
         console.log("error creating user", err);
-        return res.send("error creating user", err);
+        return res.json("error creating user", err);
       });
   } catch (error) {
     console.log("Server error");
-    return res.send("Server error");
+    return res.json("Server error");
   }
 });
 
@@ -204,15 +206,15 @@ app.post("/addToCart", async (req, res) => {
       )
       .then((pr) => {
         console.log("Product added:", pr);
-        return res.send("product added");
+        return res.json("product added");
       })
       .catch((err) => {
         console.log("Error adding product tot cart");
-        return res.send("Error adding product to cart");
+        return res.json("Error adding product to cart");
       });
   } catch (err) {
     console.log("Server eror");
-    return res.send("Server error");
+    return res.json("Server error");
   }
 });
 //getting cart products fro specific user
@@ -225,10 +227,10 @@ app.get("/cart", async (req, res) => {
       console.log("userData:", userData);
       return res.status(200).json({ cart: userData.cart });
     } else {
-      return res.json({ error: "User Cart not foutn" });
+      return res.status(400).json({ error: "User Cart not foutn" });
     }
   } catch (err) {
-    return res.json({ err: "Server error" });
+    return res.status(500).json({ err: "Server error" });
   }
 });
 
@@ -243,10 +245,10 @@ app.post("/removeProduct", async (req, res) => {
     if (result) {
       return res.send("Product removed from cart");
     } else {
-      return res.status(404).send("User or product not found");
+      return res.status(404).json("User or product not found");
     }
   } catch (err) {
-    return res.send("Server error");
+    return res.status(500).json("Server error");
   }
 });
 app.post("/updateCartProduct", async (req, res) => {
@@ -268,13 +270,14 @@ app.post("/updateCartProduct", async (req, res) => {
     );
     console.log("update product :", updatedProduct);
     if (updatedProduct) {
-      return res.status(200).send("Successfully updated");
+      console.log("product cart item updated");
+      return res.status(200).json("Successfully updated");
     } else {
-      return res.status(400).send("Error updating cart product");
+      return res.status(400).json("Error updating cart product");
     }
   } catch (err) {
     console.log("Server error");
-    return res.send(500).send("Server error");
+    return res.status(500).json("Server error");
   }
 });
 app.listen(PORT, () => console.log("Server started at :", PORT));

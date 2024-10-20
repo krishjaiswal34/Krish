@@ -1,0 +1,26 @@
+
+.nav-options-hover-animation{
+    position:relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content:center;
+
+    cursor: pointer;
+}
+
+.nav-options-hover-animation::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background-color: black;
+    border-radius: 10px;
+
+}
+
+.nav-options-hover-animation:hover::after{
+    width: 100%;
+    transition: 0.4s ease-in-out;
+}

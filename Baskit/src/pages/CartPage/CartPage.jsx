@@ -4,6 +4,8 @@ import CartItemCard from "../../components/CartItemCard";
 import { Button } from "../../components/Button";
 import { useColorScheme } from "@mui/material";
 import { ProductContext } from "../../contexts/ProductContext";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CartPage = () => {
   const { products, cartProducts } = useContext(ProductContext);
@@ -29,17 +31,22 @@ const CartPage = () => {
   }, [eachProductTotalPrice, cartProducts]);
   return (
     <div className="w-full min-h-[100vh] ">
+
       <MainHeading text={"YOUR CART"} />
 
-      <div className="w-full min-h-[100vh] flex  gap-8 mt-5">
+      <div className="w-full min-h-[100vh] flex  gap-8 mt-10">
         {/*all cart items list */}
-        <div className="flex flex-col gap-4  w-full">
-          <div className="flex justify-between items-center text-lg font-semibold">
-            <p>PRODUCT DETAIL</p>
-            <p>PRICE</p>
-            <p>QUANTITY</p>
-            <p>TOTAL PRICE</p>
-            <p>REMOVE</p>
+        <div className="flex flex-col gap-4  w-full font-semibold">
+          <div className="w-full px-2 py-4 flex justify-between items-center ">
+            <p className="w-2/6 flex items-center justify-center ">PRODUCT DETAIL</p>
+            <p className="w-1/6 flex items-center justify-center ">TOTAL PRICE</p>
+            <p className="w-1/6 flex items-center justify-center ">QUANTITY</p>
+            <p className="w-1/6 flex items-center justify-center ">Save</p>
+   
+            
+          
+            
+            <p className="w-1/6 flex items-center justify-center ">REMOVE</p>
           </div>
           <div className="flex-1 flex flex-col gap-8 items-start">
             {cartProducts?.map((pr, index) => {

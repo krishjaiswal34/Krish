@@ -7,24 +7,24 @@ import { NavBar } from './components/NavBar/NavBar'
 import { FooterSection } from './components/FooterSection/FooterSection'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { FirebaseAuthContext } from './contexts/FirebaseAuthContext'
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [count, setCount] = useState(0);
   const navigate=useNavigate();
   const {logedInUser}=useContext(FirebaseAuthContext);
 
-  // useEffect(()=>{
-  //   if(!logedInUser){
-      
 
-  //   }
-  // })
 
   return (
    <>
+ 
+  
    <NavBar/>
 <Outlet/>
 <FooterSection/>
+<ToastContainer/>
    </>
   )
 }

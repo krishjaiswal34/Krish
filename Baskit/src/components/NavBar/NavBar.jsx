@@ -7,6 +7,7 @@ import { useColorScheme } from "@mui/material";
 import { useContext } from "react";
 import { ProductContext } from "../../contexts/ProductContext";
 import { FirebaseAuthContext } from "../../contexts/FirebaseAuthContext";
+import './navBAr.css'
 
 export const NavBar = () => {
   const { logedInUser,logOut} = useContext(FirebaseAuthContext);
@@ -20,10 +21,10 @@ export const NavBar = () => {
       </NavLink>
 
       <div className="flex  gap-4 text-lg items-center justify-center ">
-        <p>Home</p>
-        <p>Shop</p>
-        <p>About</p>
-        <p>Contact us</p>
+        <p className="font-semibold nav-options-hover-animation ">Home</p>
+        <NavLink to={'shop'} className="font-semibold nav-options-hover-animation ">Shop</NavLink>
+        <p className="font-semibold nav-options-hover-animation ">About</p>
+        <NavLink className="font-semibold nav-options-hover-animation " to={'contact-us'}>Contact us</NavLink>
         <p>|</p>
         
 

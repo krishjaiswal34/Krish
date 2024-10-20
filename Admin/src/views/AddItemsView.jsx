@@ -4,6 +4,7 @@ import image from "../assets/Tshirt.png";
 import { ProductSize } from "../components/ProductSize";
 import {toast,ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import CustomCheckbox from "../components/CustomCheckBox";
 export const AddItemsView = () => {
 const [thumbnail,setThumbnail]=useState();
 const [extraImages,setExtraImages]=useState({});
@@ -14,6 +15,7 @@ const [category,setCategory]=useState('Men');
 const [subcategory,setSubCategory]=useState('Shirt');
 const [smallDescription,setSmallDescription]=useState('');
 const [fullDescription,setFullDescription]=useState('');
+const [isFeatured,setIsFeatured]=useState(false)
 const notify=()=>{
  return toast.success('Item successfully listed',{position:"top-right"})
 }
@@ -89,6 +91,7 @@ const formData=new FormData();
   formData.append('price',price)
   formData.append('smallDescription',smallDescription)
   formData.append('fullDescription',fullDescription)
+  formData.append('isFeatured',isFeatured)
  sizes.forEach(size => {
   
   formData.append('sizes[]',size)
@@ -96,6 +99,7 @@ const formData=new FormData();
   formData.append('thumbnail',thumbnail)
   formData.append('category',category)
   formData.append('subCategory',subcategory)
+
   
   console.log("formData:",formData)
 
@@ -235,6 +239,7 @@ useEffect(()=>{
           placeholder="Enter product name"
         />
       </div>
+     <CustomCheckbox setIsFeatured={setIsFeatured}/>
       <button type="submit" onClick={handleFormSubmit} className="px-4 py-2 bg-[rgba(0,0,0,1)] text-white">
         ADD
       </button>

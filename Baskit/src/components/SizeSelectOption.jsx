@@ -20,7 +20,7 @@ const SizeSelectOption = ({ text, setSizeToBuy, sizeToBuy }) => {
     <div
       onClick={handleSizeSelect}
       className={`px-4 py-2 cursor-pointer border-[rgba(0,0,0,0.07)] border-2 bg-[rgba(0,0,0,0.05)] ${
-        sizeToBuy === text ? "border-[rgba(0,0,0)]" : ""
+        sizeToBuy === text ? "border-[rgba(0,0,0,1)] " : ""
       }`}
     >
       {text}

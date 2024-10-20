@@ -1,17 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './HeroSection.css'
 import men from '../../assets/Images/model4.png'
+import { ProductContext } from '../../contexts/ProductContext'
 export const HeroSection = () => {
+
+  const {scrollToView}=useContext(ProductContext)
   return (
 
     <div className='hero-section '>
 <div className='hero-desc mt-32 px-5 text-start  '>
 
-<h1 className='text-4xl font-bold mb-4 '>Elevate Your Everyday Look</h1>
+<h1 className='text-6xl font-bold mb-5 '>Elevate Your Everyday Look</h1>
 <p>Discover the latest trends in men's fashion. Find your perfect look, whether casual, business, or street style ,Discover the latest trends in men's fashion. Find your perfect look, whether casual, business, or street style.</p>
 {/* <button className='bg-[black] text-white text-lg px-4 py-2 rounded-full mt-7 '>Shop Now</button> */}
 
 <button
+onClick={()=>scrollToView('latestcollections')}
 
   class="flex justify-center gap-2 items-center shadow-md mt-10 text-lg bg-gray-50 backdrop-blur-md lg:font-semibold isolation-auto border-gray-50 before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-black hover:text-white before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-4 py-2 overflow-hidden border-2 rounded-full group"
 >

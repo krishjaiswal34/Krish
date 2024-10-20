@@ -1,14 +1,22 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 
-import { products as productsList } from "../assets/MockData";
+
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebaseAuth";
+import { toast, ToastContainer } from "react-toastify";
 
 const ProductContext = createContext();
 const ProductContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
   const [logedInUser, setLogedInUser] = useState();
+  const latesCollectionRef = useRef();
+
+  const scrollToView = (sectionId) => {
+    if (sectionId === "latestcollections") {
+      latesCollectionRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const fetchProducts = async () => {
     try {
@@ -31,7 +39,7 @@ const ProductContextProvider = ({ children }) => {
           setCartProducts(responseData.cart);
         }
       }
-    );
+    ).catch((err)=>{console.log("Error fetching cart products:",err);alert("Error fetching cart products")})
   };
 
   const addProductToUserCart = (product, sizeToBuy, quantityToBuy) => {
@@ -50,8 +58,9 @@ const ProductContextProvider = ({ children }) => {
       }),
     })
       .then((product) => {
+        toast.success("Product Added to Cart !");
         fetchCartProducts();
-        alert("Added to cart");
+       
       })
       .catch((err) => alert("Error adding to cart"));
   };
@@ -70,8 +79,8 @@ const ProductContextProvider = ({ children }) => {
       }),
     })
       .then(() => {
-        alert("Product removed");
         fetchCartProducts();
+        toast.success("Product removed !", { position: "top-right" });
       })
       .catch(() => alert("Unexpected error"));
   };
@@ -90,11 +99,21 @@ const ProductContextProvider = ({ children }) => {
         newQuantity: newQuantity,
       }),
     })
-      .then(() => {
-        alert("Updated");
-        fetchCartProducts();
+      .then(async (response) => {
+        console.log("updated cart product is ok")
+        if (response.ok) {
+          const responseData = await response.json();
+
+          if (responseData) {
+            toast.success("Cart Product Updated !", { position: "top-right" });
+            fetchCartProducts();
+          }
+        }
       })
-      .catch(() => alert("Unexpected error"));
+      .catch((err) => {
+        alert("Unexpected error");
+        console.warn("Unexpectedc error", err);
+      });
   };
   useEffect(() => {
     const userResult = onAuthStateChanged(firebaseAuth, (user) => {
@@ -122,6 +141,8 @@ const ProductContextProvider = ({ children }) => {
         logedInUser,
         removeProductFromUserCart,
         updateCartProduct,
+        latesCollectionRef,
+        scrollToView,
       }}
     >
       {children}

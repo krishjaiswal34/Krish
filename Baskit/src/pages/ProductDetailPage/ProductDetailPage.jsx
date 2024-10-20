@@ -4,8 +4,6 @@ import SizeSelectOption from "../../components/SizeSelectOption";
 import { Button } from "../../components/Button";
 import { SmallImage } from "../../components/SmallImage/SmallImage";
 import { ProductContext } from "../../contexts/ProductContext";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 export const ProductDetailPage = () => {
   const location = useLocation();
@@ -17,28 +15,26 @@ export const ProductDetailPage = () => {
   const [quantityToBuy,setQuantityToBuy]=useState(1)
 
   console.log("product from product detail::", product);
-  const successNotify = () =>
-    toast.success("Added to cart", { position: "top-right" });
-  const warnNotify = () => toast.warning("Please login to your account");
+
 
   const handleAddToCartBtnClick = () => {
     if (logedInUser) {
       addProductToUserCart(product,sizeToBuy,quantityToBuy);
-      successNotify();
+      
     } else {
-      warnNotify();
+     
     }
   };
 
-  const handleTabToggle = (selectedTab) => {
-    setDescTab(selectedTab);
-  };
+  // const handleTabToggle = (selectedTab) => {
+  //   setDescTab(selectedTab);
+  // };
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   return (
     <div>
-      <ToastContainer />
+    
       <hr />
       <div className="flex gap-10 w-full h-[80vh] py-8">
         <div className="w-1/2 flex gap-4 h-full">
