@@ -6,7 +6,7 @@ import { FirebaseAuthContext } from "../../contexts/FirebaseAuthContext";
 
 const OrderPage = () => {
   const [paymentMethod, setPaymentMethod] = useState("Card");
-  const { product,quantityToBuy } = useLocation().state;
+  const { product,quantityToBuy,sizeToBuy } = useLocation().state;
   const { logedInUser } = useContext(FirebaseAuthContext);
   console.log("ordered product:", product);
 
@@ -72,7 +72,7 @@ const OrderPage = () => {
           body: JSON.stringify({
             "userAuthId": logedInUser.uid,
             "shipingInfo": formData,
-            "product":product,
+            "product":{...product,quantityToBuy,sizeToBuy},
           }),
         }).then(async (response) => {
           if (response.ok) {

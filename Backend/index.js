@@ -289,7 +289,8 @@ try{
   const result=await OrderModel.create({
     userAuthId,
     shipingInfo,
-    product
+    product,
+    status:'Not delivered'
   })
 
   if(result){
@@ -301,6 +302,25 @@ try{
 }
 catch(error){
   return res.json({"ServerError":error})
+}
+
+})
+//fetching orders for specific user
+app.get('/userOrders',async (req,res)=>{
+console.log("userOrders hit")
+try{
+  const {userAuthId}=req.query;
+  console.log("userAuth id b query:",userAuthId)
+  const orders=await OrderModel.find({userAuthId});
+  if(orders){
+    console.log("orders",orders)
+    return res.status(200).json({"orders":orders})
+  }else{
+    return res.status(400).json({"Error":"Error fetching orders"})
+  }
+
+}catch(error){
+  return res.status(500).json({"ServerError":error})
 }
 
 })

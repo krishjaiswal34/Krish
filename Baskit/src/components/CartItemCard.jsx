@@ -32,7 +32,7 @@ const CartItemCard = ({
   const totalPrice = productQuantity * price;
 
   const handleBuyBtnClick = () => {
-    navigate("/order", { state: { "product": product ,"quantityToBuy":quantityToBuy} });
+    navigate("/order", { state: { "product": product ,"quantityToBuy":quantityToBuy,'sizeToBuy':sizeToBuy} });
   };
 
   useEffect(() => {

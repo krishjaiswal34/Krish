@@ -30,7 +30,7 @@ export const ProductDetailPage = () => {
 const handleBuyNowBtnClick=()=>{
 
   if (logedInUser) {
-    navigate('/order',{state:{"product":product,"quantityToBuy":quantityToBuy}})
+    navigate('/order',{state:{"product":product,"quantityToBuy":quantityToBuy,'sizeToBuy':sizeToBuy}})
     
   } else {
    toast.error("User not logined !")

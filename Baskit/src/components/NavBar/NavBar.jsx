@@ -23,6 +23,7 @@ export const NavBar = () => {
       <div className="flex  gap-4 text-lg items-center justify-center ">
         <NavLink to={'/'} className="font-semibold nav-options-hover-animation ">Home</NavLink>
         <NavLink to={'shop'} className="font-semibold nav-options-hover-animation ">Shop</NavLink>
+        <NavLink to={'user-orders'} className="font-semibold nav-options-hover-animation ">Orders</NavLink>
         {/* <p className="font-semibold nav-options-hover-animation ">About</p> */}
         <NavLink className="font-semibold nav-options-hover-animation " to={'contact-us'}>Contact us</NavLink>
         <p>|</p>
