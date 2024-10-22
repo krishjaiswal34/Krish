@@ -285,12 +285,12 @@ app.post("/updateCartProduct", async (req, res) => {
 app.post('/placeOrder',async(req,res)=>{
 console.log("placedOrder route hit",req.body)
 try{
-  const {userAuthId,shipingInfo,product}=req.body;
+  const {userAuthId,shipingInfo,product,status}=req.body;
   const result=await OrderModel.create({
     userAuthId,
     shipingInfo,
     product,
-    status:'Not delivered'
+    status
   })
 
   if(result){
@@ -323,5 +323,43 @@ try{
   return res.status(500).json({"ServerError":error})
 }
 
+})
+//all orders
+app.get('/orders',async (req,res)=>{
+
+try{
+  const orders=await OrderModel.find({});
+  if(orders){
+    return res.status(200).json({"orders":orders})
+
+  }
+  else{
+    return res.status(400).json({"error":"orders not found"})
+  }
+}catch(error){
+  return res.status(500).json({"Error":"Server error"})
+}
+});
+//update order status by admin
+app.post('/updateOrderStatus',async (req,res)=>{
+console.warn("updateORder route hit",)
+try{
+  const {_id,newStatus}=req.body;
+  console.log(_id,newStatus)
+
+  const updateOrder=await OrderModel.findOneAndUpdate({_id},{status:newStatus},{new:true})
+  console.log("updateOrder:",updateOrder)
+
+  if(updateOrder){
+    return res.status(200).json({"Success":"Successfully updated order status"})
+  }else{
+    return res.status(400).json({"Error":"Error updating order status"})
+  }
+
+}catch(error){
+  console.log("server error",error)
+  return res.status(500).json({"ServerError":error})
+  
+}
 })
 app.listen(PORT, () => console.log("Server started at :", PORT));

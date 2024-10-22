@@ -39,7 +39,7 @@ const UserOrdersPage = () => {
   return  <>
   
   {
-    orders?<div className="w-full min-h-[100vh] ">
+  !loading?  orders.length>0?<div className="w-full min-h-[100vh] ">
 
     <MainHeading text={"YOUR ORDERS"} />
   
@@ -86,7 +86,7 @@ const UserOrdersPage = () => {
         <Button text={"PROCEED TO CHECKOUT"} />
       </div> */}
     </div>
-  </div>:<div>fetching orders</div>
+  </div>:<div>No orders yet</div>:<div>fetching orders</div>
   }
   </>;
 };

@@ -73,6 +73,7 @@ const OrderPage = () => {
             "userAuthId": logedInUser.uid,
             "shipingInfo": formData,
             "product":{...product,quantityToBuy,sizeToBuy},
+            "status":'Not delivered'
           }),
         }).then(async (response) => {
           if (response.ok) {
