@@ -9,6 +9,7 @@ const ProductModel = require("./models/productModel");
 const userModel = require("./models/userModel");
 const { v4: uuidv4 } = require("uuid");
 const { error } = require("console");
+const OrderModel = require("./models/ordersModel");
 dotenv.config();
 //creating express app
 
@@ -280,4 +281,27 @@ app.post("/updateCartProduct", async (req, res) => {
     return res.status(500).json("Server error");
   }
 });
+//placing order
+app.post('/placeOrder',async(req,res)=>{
+console.log("placedOrder route hit",req.body)
+try{
+  const {userAuthId,shipingInfo,product}=req.body;
+  const result=await OrderModel.create({
+    userAuthId,
+    shipingInfo,
+    product
+  })
+
+  if(result){
+    return res.status(200).json({"success":"Successfully order placed"})
+  }
+  else{
+    return res.status(400).json({"Error":"Error placing order"})
+  }
+}
+catch(error){
+  return res.json({"ServerError":error})
+}
+
+})
 app.listen(PORT, () => console.log("Server started at :", PORT));

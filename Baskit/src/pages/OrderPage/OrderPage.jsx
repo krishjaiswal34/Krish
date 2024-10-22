@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import MainHeading from "../../components/MainHeading";
 import { toast } from "react-toastify";
-import { useLocation } from "react-router-dom";
+import { json, useLocation } from "react-router-dom";
+import { FirebaseAuthContext } from "../../contexts/FirebaseAuthContext";
 
 const OrderPage = () => {
   const [paymentMethod, setPaymentMethod] = useState("Card");
-  const {product}=useLocation().state;
-  console.log("ordered product:",product)
+  const { product,quantityToBuy } = useLocation().state;
+  const { logedInUser } = useContext(FirebaseAuthContext);
+  console.log("ordered product:", product);
+
   //store form data
   const [formData, setFormData] = useState({
     name: "",
@@ -22,10 +25,11 @@ const OrderPage = () => {
     expiryYear: "",
     cvv: "",
   });
-  const productQnty=product.quantityToBuy?product.quantityToBuy:1;
-  const productPrice=parseInt(product.price)
-const shippingPrice=15;
-const tax=8.02;
+  const productQnty =  quantityToBuy
+  const productPrice = parseInt(product.price);
+  const shippingPrice = 15;
+  const tax = 8.02;
+  const subTotal=productQnty*productPrice;
   // Handle form input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -34,7 +38,7 @@ const tax=8.02;
   // Handle form submission (validation and sending data to backend)
   const handlePlaceOrder = () => {
     // Check if all fields are filled
-    console.log("formdat :",formData)
+    console.log("formdat :", formData);
     const {
       name,
       address1,
@@ -49,22 +53,46 @@ const tax=8.02;
     } = formData;
 
     if (
-      !name ||
-      !address1 ||
-      !city ||
-      !state ||
-      !zip ||
-      !cardName ||
-      !cardNumber ||
-      !expiryMonth ||
-      !cvv
+      name ||
+      address1 ||
+      city ||
+      state ||
+      zip ||
+      cardName ||
+      cardNumber ||
+      expiryMonth ||
+      cvv
     ) {
-      toast.error("Please fill all the fields !!");
-      return;
+      try {
+        fetch("http://localhost:8000/placeOrder", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            "userAuthId": logedInUser.uid,
+            "shipingInfo": formData,
+            "product":product,
+          }),
+        }).then(async (response) => {
+          if (response.ok) {
+            const responseData =await response.json();
+            console.log("response data after placing order:", responseData);
+            toast.success("Order placed successfully");
+          } else {
+            toast.error("Error placing order");
+          }
+        }).catch((err)=>{
+          console.log("error placeorder:",err)
+        })
+      } catch (error) {
+        toast.error("Unexpected error !");
+      }
+    }else{
+      toast.error("Please fill all the fields")
     }
-    toast.success("Order place successfully !")
-    console.log("Order placed successfully!", formData);
   };
+
   return (
     <div className="min-h-screen flex flex-col gap-2 justify-center items-center  p-6 text-start">
       <MainHeading text={"ORDER"} />
@@ -173,13 +201,16 @@ const tax=8.02;
           <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
           <div className="mb-4">
             <div className="flex justify-between">
-              <span>{product.
-name}</span>
+              <span>{product.name}</span>
               <span>${product.price}</span>
             </div>
             <div className="flex justify-between text-sm text-gray-500">
               <span>Quantity</span>
               <span>{productQnty}</span>
+            </div>
+            <div className="flex justify-between ">
+              <span>subtotal</span>
+              <span>${subTotal}</span>
             </div>
             <div className="flex justify-between text-sm text-gray-500">
               <span>Shipping</span>
@@ -192,10 +223,10 @@ name}</span>
           </div>
           <div className="flex justify-between font-semibold">
             <span>Total</span>
-            <span>${productPrice + shippingPrice +tax}</span>
+            <span>${subTotal + shippingPrice + tax}</span>
           </div>
           <button
-            onClick={handlePlaceOrder}
+            onClick={()=>handlePlaceOrder()}
             className="mt-4 w-full bg-[rgba(0,0,0)] text-white py-2 rounded hover:bg-[rgba(0,0,0,0.8)]"
           >
             Place Order

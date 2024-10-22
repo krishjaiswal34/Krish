@@ -47,6 +47,7 @@ const CartPage = () => {
           
             
             <p className="w-1/6 flex items-center justify-center ">REMOVE</p>
+            <p className="w-1/6 flex items-center justify-center ">BUY NOW</p>
           </div>
           <div className="flex-1 flex flex-col gap-8 items-start">
             {cartProducts?.map((pr, index) => {
@@ -66,7 +67,7 @@ const CartPage = () => {
         </div>
         {/*checkout container */}
 
-        <div className="w-1/3 py-5 px-5 flex flex-col border-2 rounded-s max-h-[400px] gap-6">
+        {/* <div className="w-1/3 py-5 px-5 flex flex-col border-2 rounded-s max-h-[400px] gap-6">
           <MainHeading text={"CART TOTALS"} />
 
           <div className="w-full flex flex-col gap-2">
@@ -87,7 +88,7 @@ const CartPage = () => {
           </div>
 
           <Button text={"PROCEED TO CHECKOUT"} />
-        </div>
+        </div> */}
       </div>
     </div>
   );
