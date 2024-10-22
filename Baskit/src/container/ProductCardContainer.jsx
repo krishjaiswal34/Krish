@@ -8,7 +8,7 @@ export const ProductCardContainer = ({product}) => {
 
     const handleProductViewClick=()=>{
         console.log("card clicked..")
-        navigate('product-detail',{state:{"product":product}});
+        navigate('/product-detail',{state:{"product":product}});
 
     }
   return (

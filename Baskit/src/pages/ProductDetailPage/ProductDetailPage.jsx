@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import SizeSelectOption from "../../components/SizeSelectOption";
 import { Button } from "../../components/Button";
 import { SmallImage } from "../../components/SmallImage/SmallImage";
 import { ProductContext } from "../../contexts/ProductContext";
+import { toast } from "react-toastify";
 
 export const ProductDetailPage = () => {
   const location = useLocation();
@@ -13,6 +14,7 @@ export const ProductDetailPage = () => {
   const [descTab, setDescTab] = useState("description");
   const [sizeToBuy,setSizeToBuy]=useState('M');
   const [quantityToBuy,setQuantityToBuy]=useState(1)
+  const navigate=useNavigate();
 
   console.log("product from product detail::", product);
 
@@ -22,10 +24,18 @@ export const ProductDetailPage = () => {
       addProductToUserCart(product,sizeToBuy,quantityToBuy);
       
     } else {
-     
+     toast.error("User not logined !")
     }
   };
+const handleBuyNowBtnClick=()=>{
 
+  if (logedInUser) {
+    navigate('/order',{state:{"product":product}})
+    
+  } else {
+   toast.error("User not logined !")
+  }
+}
   // const handleTabToggle = (selectedTab) => {
   //   setDescTab(selectedTab);
   // };
@@ -73,12 +83,20 @@ export const ProductDetailPage = () => {
               })}
           </div>
 
-          <button
+         <div className="flex gap-5">
+         <button
             onClick={handleAddToCartBtnClick}
-            className="py-2 px-4 bg-black text-white"
+            className="py-2 px-4 bg-black text-white hover:bg-[rgba(0,0,0,0.8)]"
           >
             ADD TO CART
           </button>
+          <button
+            onClick={handleBuyNowBtnClick}
+            className="py-2 px-4 border-2 border-black text-black "
+          >
+            BUY NOW
+          </button>
+         </div>
         </div>
       </div>
 

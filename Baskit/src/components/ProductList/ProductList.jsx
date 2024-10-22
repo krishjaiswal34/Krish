@@ -3,7 +3,7 @@ import './ProductList.css'
 import { ProductCard } from '../ProductCard/ProductCard'
 import { ProductCardContainer } from '../../container/ProductCardContainer'
 
-export const ProductList = ({products,featured=false}) => {
+export const ProductList = ({products,featured=false,all=false}) => {
   return (
 
     
@@ -11,10 +11,15 @@ export const ProductList = ({products,featured=false}) => {
 
 {
   products&& products.map((product,index)=>{
-if(product.isFeatured===featured){
+    if(!all){
+      if(product.isFeatured===featured){
 
-  return <ProductCardContainer product={product}/>
-}
+        return <ProductCardContainer product={product}/>
+      }
+      
+    }else{
+      return <ProductCardContainer product={product}/>
+    }
 
 
   }

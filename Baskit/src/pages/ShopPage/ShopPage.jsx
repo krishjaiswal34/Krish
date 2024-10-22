@@ -1,17 +1,27 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import banner from '../../assets/Images//b10.jpg'
+import bannerImage from '../../assets/Images//b10.jpg'
 import './ShopPage.css'
+import { ProductContext } from '../../contexts/ProductContext'
+import MainHeading from '../../components/MainHeading'
+import { Subheading } from '../../components/Subheading'
+import { ProductList } from '../../components/ProductList/ProductList'
+import Banner from '../../components/Banner'
 export const ShopPage = () => {
    
+  const {products}=useContext(ProductContext)
+
+
   return (
    <div className='w-full'>
 
-<div className='h-[200px] w-full border-[1px] border-black flex bg-contain banner object-cover' >
-<img className='object-cover' src={banner}/>
+{/*shop banner */}
+<Banner bannerImage={bannerImage} heading={'SHOP'}/>
+<MainHeading text={"OUR ALL PRODUCTS"}/>
+<Subheading text={"Find fashion from our extensive collections ,that fits weell on you from"}/>
 
-</div>
 
+<ProductList products={products} all={true}/>
    </div>
   )
 }

@@ -8,6 +8,7 @@ import {
   signOut
 } from "firebase/auth";
 import { addUserToDB } from "../utils/addUserToDB";
+import {toast} from 'react-toastify'
 
 const firebaseAuth = getAuth(firebaseApp);
 
@@ -26,11 +27,18 @@ const FirebaseAuthContextProvider = ({ children }) => {
         .then(async (usr) => {
           const { uid } = usr.user;
           console.log("Registered user:", uid);
+          if(user){
+            toast.success("Registered successfully !")
+          }
           addUserToDB(uid);
         })
-        .catch((error) => console.log("Error register user:", error));
+        .catch((error) => {console.log("Error register user:", error);
+       
+        toast.error("Invalid input !");
+      });
     } catch (error) {
-      alert("Unexpected Error !");
+      
+      toast.error("Error registering user !");
     }
   };
 
@@ -43,17 +51,21 @@ const FirebaseAuthContextProvider = ({ children }) => {
       )
         .then((user) => {
           console.log("Logined user:", user);
-          alert("User successfully logined");
+          if(user){
+            toast.success("Logined Successfully !")
+          }
         })
         .catch((error) => {
           console.log("Error login user:", error);
+         
         });
     } catch (error) {
       alert("Unexpected Error");
+      toast.error("Wrong Email or Password");
     }
   };
   const logOut=async()=>{
-    await signOut(firebaseAuth);
+    await signOut(firebaseAuth).then(()=>toast.success("LogOut successfully !")).catch(()=>toast.error("Error logOuting user"))
   }
 
   useEffect(() => {

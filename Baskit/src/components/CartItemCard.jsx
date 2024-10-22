@@ -7,6 +7,8 @@ import { faSave } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import './SmallImage/SmallImage.css'
+import { useNavigate } from "react-router-dom";
 
 const CartItemCard = ({
   product,
@@ -15,6 +17,8 @@ const CartItemCard = ({
   quantityToBuy,
   setEachProductTotalPrice,
 }) => {
+
+  const navigate=useNavigate();
   console.log("product", product, "product_id:", product_id);
 
   const thumbnail = product?.thumbnail;
@@ -37,7 +41,10 @@ const CartItemCard = ({
   return (
     <div className=" w-full text-start px-2 py-4 flex justify-between items-center gap-2 ">
       <div className="gap-6 w-2/6 flex items-center justify-center ">
-        <SmallImage image={thumbnail} />
+      <div onClick={()=>navigate('/product-detail',{state:{'product':product}})} className="small-image">
+    <img  src={product.thumbnail
+} alt="image" />
+  </div>
         <div className="flex flex-col gap-2">
           <h1 className="text-xl font-semibold">{name}</h1>
           <p className="text-lg">${price}</p>

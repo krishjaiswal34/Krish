@@ -14,8 +14,7 @@ export const SignupPage = () => {
   const [password,setPassword]=useState('');
   const [firstName,setFirstName]=useState('');
   const [lastName,setLastName]=useState('');
-  const successNotify=()=>toast.success("Signup successful");
-  const warnNotify=()=>toast.error("Invalid Input");
+
 
 
   const handleSignUpBtnclick=async(e)=>{
@@ -24,11 +23,7 @@ export const SignupPage = () => {
     e.preventDefault();
   
 const user=await registerUserWithEmailAndPassword(email,password)
-if(user){
-  successNotify();
-}else{
-warnNotify();
-}
+
 
   }
 

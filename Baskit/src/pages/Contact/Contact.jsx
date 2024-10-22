@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faLinkedin, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import "./Contact.css";
+import bannerImage from '../../assets/Images/b1.jpg'
 import {
   faEnvelope,
   faLocation,
@@ -11,6 +12,8 @@ import {
   faX,
 } from "@fortawesome/free-solid-svg-icons";
 import MainHeading from "../../components/MainHeading";
+import Banner from "../../components/Banner";
+import { Button } from "../../components/Button";
 
 // import emailjs from "@emailjs/browser";
 
@@ -62,17 +65,10 @@ e.preventDefault();
   });
   return (
     <div className="w-full min-h-[100vh] flex flex-col items-center relative ">
- 
-      <div className="w-full max-w-[1440px]  mt-10 px-2 lg:px-[20px] mb-[50vh]  ">
-        <div className="flex flex-col items-center">
-          <MainHeading text={'CONTACT US'}/>
-          <p className="w-[70%] sub-heading text-center mt-3">
-            Whether you have questions, feedback, or just want to say hello,
-            feel free to reach out. I'm excited to connect and collaborate with
-            you!
-          </p>
-        </div>
+      <div className="w-full max-w-[1440px]  ">
 
+        <Banner bannerImage={bannerImage} heading={'CONTACT'}/>
+    
      
 
         <div className="w-full flex gap-10 mt-[100px]  min-h-[400px] max-md:flex-col">
@@ -137,8 +133,8 @@ e.preventDefault();
               </div>
             </div>
           </div>
-          {/*--------------contact form-----------------*/}
-          <form onSubmit={handleSubmit} className="contact-form flex-1 rounded-lg  bg-[#008eb11e] flex flex-col gap-10 px-6 py-4 ">
+          {/*--------------contact form----------------- bg-[#008eb11e]*/}
+          <form onSubmit={handleSubmit} className="contact-form flex-1    border-2 border-[rgba(0,0,0,0.4)] flex flex-col gap-10 px-6 py-4  shadow-black shadow-sm ">
             <MainHeading text={"SEND A MESSAGE/FEEDBACK 💌"} />
             <input name="name" 
             onChange={handleChange}
@@ -160,9 +156,9 @@ e.preventDefault();
             value={formData.message}
             onChange={handleChange}
              rows={1} placeholder="Message"></textarea>
-             <div className="w-full flex items-center justify-center "><button
-             type="submit"
-             >Send</button></div>
+             <div className="w-full flex items-center justify-center ">
+              <Button text={'SEND'} />
+             </div>
           </form>
           {/*--------------------*/}
         </div>

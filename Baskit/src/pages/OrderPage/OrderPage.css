@@ -1,0 +1,25 @@
+.step-indicator {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem;
+    margin: 0 0.5rem;
+    color: #b0bec5; /* Inactive color */
+  }
+  
+  .step-indicator.active {
+    color: #42a5f5; /* Active color */
+    font-weight: bold;
+  }
+  
+  .step-indicator span {
+    background-color: #fff;
+    border: 2px solid #b0bec5;
+    padding: 0.5rem 1rem;
+    border-radius: 50%;
+  }
+  
+  .step-indicator.active span {
+    border-color: #42a5f5; /* Active color */
+  }
+  

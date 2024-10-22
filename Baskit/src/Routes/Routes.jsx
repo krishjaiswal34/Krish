@@ -8,6 +8,8 @@ import { LoginPage } from '../pages/LoginPage/LoginPage'
 import { SignupPage } from '../pages/SignupPage/SignupPage'
 import Contact from '../pages/Contact/Contact'
 import { ShopPage } from '../pages/ShopPage/ShopPage'
+import OrderPage from '../pages/OrderPage/OrderPage'
+
 
 
 
@@ -33,6 +35,9 @@ children:[
     },{
         path:'shop',
         element:<ShopPage/>
+    },{
+        path:'order',
+        element:<OrderPage/>
     }
 ]
     },
