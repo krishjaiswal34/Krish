@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./LoginPage.css";
 import { useNavigate } from "react-router-dom";
 import MainHeading from "../../components/MainHeading";
-import { FirebaseAuthContext } from "../../contexts/FirebaseAuthContext";
+import {FirebaseAuthContext} from '../../contexts/FirebaseAuthContext'
 import {toast,ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -12,25 +12,20 @@ export const LoginPage = () => {
   const { loginUserWithEmailAndPassword,logedInUser } = useContext(FirebaseAuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const successNotify = () => toast.success("Login successful");
-  const warnNotify = () => toast.error("Wrong Email or password");
+
 
   const handleLoginBtnclick = async (e) => {
     e.preventDefault();
-
+console.log("email",email,"pass:",password)
     const user = await loginUserWithEmailAndPassword(email, password);
-    if (user) {
-      successNotify();
-    } else {
-      warnNotify();
-    }
+    
   };
 
-  useEffect(()=>{
-    if(logedInUser){
-      navigate('/')
-    }
-  },[logedInUser])
+useEffect(()=>{
+  if(logedInUser){
+    navigate('/')
+  }
+},[logedInUser])
   return (
     <div className="flex min-h-[100vh] max-w-[1280px] flex-col items-center justify-center">
       <ToastContainer />
@@ -75,13 +70,10 @@ export const LoginPage = () => {
           Login{" "}
         </button>
         <p class="p">
-          Don't have an account?{" "}
-          <span onClick={() => navigate("/register")} class="span">
-            Sign Up
-          </span>
+          Only admin can login !
+         
         </p>
 
-      
       </form>
     </div>
   );

@@ -45,9 +45,9 @@ const {updateOrderStatus}=useContext(AdminContext);
     </select>
 
 
-<FontAwesomeIcon onClick={()=>updateOrderStatus(order._id
+<FontAwesomeIcon className='cursor-pointer' onClick={()=>updateOrderStatus(order._id
 ,orderStatus)} icon={faSave}/>
-<FontAwesomeIcon icon={faTrash}/>
+
 
 
     </div>

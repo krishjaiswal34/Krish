@@ -18,7 +18,7 @@ const {orders}=useContext(AdminContext);
 
     return <OrderProductCard order={order}/>
 
-  }):<p>No product yet listed</p>
+  }):<p>No  Ordered products</p>
 
   
 }

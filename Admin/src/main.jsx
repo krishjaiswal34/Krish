@@ -5,11 +5,14 @@ import './index.css'
 import {RouterProvider} from 'react-router-dom'
 import { routes } from './routes/routes.jsx'
 import { AdminContextProvider } from './contexts/adminContext.jsx'
+import { FirebaseAuthContext, FirebaseAuthContextProvider } from './contexts/FirebaseAuthContext.jsx'
 createRoot(document.getElementById('root')).render(
 
 <AdminContextProvider>
-    
-<RouterProvider router={routes}/>
+    <FirebaseAuthContextProvider>
+    <RouterProvider router={routes}/>
+    </FirebaseAuthContextProvider>
+
 </AdminContextProvider>
 
 

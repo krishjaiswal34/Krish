@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import './App.css'
-import NavBar from './NavBar'
+import NavBar from './components/NavBar'
 import SideBar from './views/SideBar'
 import {Outlet} from 'react-router-dom'
 import {toast,ToastContainer} from 'react-toastify'

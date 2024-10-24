@@ -66,14 +66,36 @@ const AdminContextProvider = ({ children }) => {
     }
 
   }
+const deleteAProduct=(_id)=>{
+  try{
 
+    fetch(`http://localhost:8000/deleteAProduct/?product_id=${_id}`,{
+      method:'DELETE',
+      headers:{
+        'content-type':'application/json'
+      },
+     
+    }).then(async(response)=>{
+      if(response.ok){
+        const responeData=await response.json();
+        console.log("response data product delete",responeData)
+        if(responeData){
+          fetchListeProducts();
+        }
+      }
+    })
+  }catch(erroor){
+
+alert("erroor Deleting prdduct")
+  }
+}
   useEffect(() => {
     fetchListeProducts();
     fetchOrders();
   }, []);
 
   return (
-    <AdminContext.Provider value={{ orders,listedProducts,updateOrderStatus }}>{children}</AdminContext.Provider>
+    <AdminContext.Provider value={{ orders,listedProducts,updateOrderStatus,deleteAProduct }}>{children}</AdminContext.Provider>
   );
 };
 export { AdminContext, AdminContextProvider };

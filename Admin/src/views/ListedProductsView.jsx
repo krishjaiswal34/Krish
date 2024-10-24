@@ -8,7 +8,7 @@ import { AdminContext } from '../contexts/adminContext'
 
 
 export const ListedProductsView = () => {
-  const {listedProducts}=useContext(AdminContext)
+  const {listedProducts,}=useContext(AdminContext)
 
   return (
     <div className="py-6 px-10 text-start flex flex-1 flex-col gap-4">
