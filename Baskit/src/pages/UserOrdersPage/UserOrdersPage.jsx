@@ -61,30 +61,7 @@ const UserOrdersPage = () => {
           })}
         </div>
       </div>
-      {/*checkout container */}
-  
-      {/* <div className="w-1/3 py-5 px-5 flex flex-col border-2 rounded-s max-h-[400px] gap-6">
-        <MainHeading text={"CART TOTALS"} />
-  
-        <div className="w-full flex flex-col gap-2">
-          <div className="flex justify-between">
-            <p>Sub total</p>
-            <p>${subtotalPrice}</p>
-          </div>
-          <hr />
-          <div className="flex justify-between">
-            <p>Shipping fees</p>
-            <p>${shippingFees}</p>
-          </div>
-          <hr />
-          <div className="flex justify-between text-lg font-semibold">
-            <p>Total</p>
-            <p>${shippingFees + subtotalPrice}</p>
-          </div>
-        </div>
-  
-        <Button text={"PROCEED TO CHECKOUT"} />
-      </div> */}
+
     </div>
   </div>:<div>No orders yet</div>:<div>fetching orders</div>
   }

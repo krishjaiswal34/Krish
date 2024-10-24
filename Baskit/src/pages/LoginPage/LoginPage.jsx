@@ -76,7 +76,7 @@ export const LoginPage = () => {
         </button>
         <p class="p">
           Don't have an account?{" "}
-          <span onClick={() => navigate("/register")} class="span">
+          <span onClick={() => navigate("/signup")} class="span">
             Sign Up
           </span>
         </p>

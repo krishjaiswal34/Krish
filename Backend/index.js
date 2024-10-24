@@ -6,7 +6,7 @@ const cors = require("cors");
 const {
   uploadProduct,
   getAllProducts,
-  addToCartProduct,
+  addProductToCart,
   getAllCartProducts,
   removeProductFromCart,
   updateCartProduct,
@@ -48,7 +48,7 @@ app.get("/products", getAllProducts);
 app.post("/user", registerUser);
 
 //adding product to the cart
-app.post("/addToCart", addToCartProduct);
+app.post("/addToCart", addProductToCart);
 //getting cart products fro specific user
 app.get("/cart", getAllCartProducts);
 

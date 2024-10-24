@@ -8,6 +8,7 @@ const OrderProductCard = ({order}) => {
     }=order;
     const [orderStatus,setOrderStatus]=useState(status);
 const {updateOrderStatus}=useContext(AdminContext);
+
     const colorChagneofStatus=()=>{
       if(orderStatus=='Delivered'){
         return 'bg-[rgba(0,150,0,0.3)]'

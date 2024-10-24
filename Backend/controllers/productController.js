@@ -1,6 +1,8 @@
 const fs=require('fs')
 const cloudinary=require('../config/cloudinary')
 const ProductModel=require('../models/productModel')
+const { v4: uuidv4 } = require("uuid");
+const userModel = require('../models/userModel');
 
 exports.uploadProduct= async (req, res) => {
     console.log("req body:", req.body);
@@ -107,7 +109,7 @@ exports.getAllProducts=async (req, res) => {
     return res.json({ products: products });
   }
 
-exports.addToCartProduct=async (req, res) => {
+exports.addProductToCart=async (req, res) => {
     const { userAuthId, product, sizeToBuy, quantityToBuy } = req.body;
   
     const product_id = uuidv4();

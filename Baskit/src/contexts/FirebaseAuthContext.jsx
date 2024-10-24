@@ -24,18 +24,19 @@ const FirebaseAuthContextProvider = ({ children }) => {
         email,
         password
       )
-        .then(async (usr) => {
-          const { uid } = usr.user;
-          console.log("Registered user:", uid);
+        
+   
+          
           if(user){
+            console.log("user::::",user)
+            const { uid } = user.user;
+            console.log("Registered user:", uid);
             toast.success("Registered successfully !")
+            addUserToDB(uid);
           }
-          addUserToDB(uid);
-        })
-        .catch((error) => {console.log("Error register user:", error);
-       
-        toast.error("Invalid input !");
-      });
+          
+        
+        
     } catch (error) {
       
       toast.error("Error registering user !");

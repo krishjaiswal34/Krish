@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { createContext } from "react";
+import {toast} from 'react-toastify'
 
 const AdminContext = createContext();
 const AdminContextProvider = ({ children }) => {
@@ -55,6 +56,7 @@ const AdminContextProvider = ({ children }) => {
         if(response.ok){
           const responeData=await response.json();
           console.log("response data fter product update:",responeData)
+          toast.success('Order status updated')
           if(responeData){
             fetchOrders();
           }
@@ -79,8 +81,10 @@ const deleteAProduct=(_id)=>{
       if(response.ok){
         const responeData=await response.json();
         console.log("response data product delete",responeData)
+       
         if(responeData){
           fetchListeProducts();
+          toast.success("Product deleted !")
         }
       }
     })

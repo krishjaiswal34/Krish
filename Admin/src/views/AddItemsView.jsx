@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ProductExtraIamge } from "../components/ProductExtraIamge";
 import image from "../assets/Tshirt.png";
 import { ProductSize } from "../components/ProductSize";
-import {toast,ToastContainer} from 'react-toastify'
+import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import CustomCheckbox from "../components/CustomCheckBox";
 export const AddItemsView = () => {
@@ -16,9 +16,7 @@ const [subcategory,setSubCategory]=useState('Shirt');
 const [smallDescription,setSmallDescription]=useState('');
 const [fullDescription,setFullDescription]=useState('');
 const [isFeatured,setIsFeatured]=useState(false)
-const notify=()=>{
- return toast.success('Item successfully listed',{position:"top-right"})
-}
+
 const handleThumbnailChange=(e)=>{
   console.log("Thumbnail changed")
   const image=e.target.files[0]
@@ -79,7 +77,7 @@ setFullDescription(newFullDescription)
 const handleFormSubmit=async (e)=>{
 
 e.preventDefault();
-notify();
+
 if (!name || !price || !smallDescription || !fullDescription || !sizes || !category || !subcategory || !thumbnail) {
   alert("Please fill in all the fields.");
   return;
@@ -124,9 +122,14 @@ const formData=new FormData();
     if(response.ok){
       const responeData=await response.json();
       console.log("response data ",responeData)
+      if(responeData){
+        toast.success("Product listed !")
+      }
     }
   }).catch((err)=>{
-    console.log("ERror sending formdata",err)
+    console.log("ERror sending formdata",err);
+    toast.error("Unexpected error !")
+    
   })
 
 
@@ -138,7 +141,7 @@ useEffect(()=>{
 
   return (
     <form onSubmit={handleFormSubmit} className="py-6 px-10 text-start flex flex-col gap-4">
-<ToastContainer/>
+
       {/* product Thumbnail */}
      <div className="flex flex-col gap-2">
 
