@@ -5,37 +5,39 @@ import { Button } from "../../components/Button";
 import { SmallImage } from "../../components/SmallImage/SmallImage";
 import { ProductContext } from "../../contexts/ProductContext";
 import { toast } from "react-toastify";
-
+import "./ProductDetailPage.css";
 export const ProductDetailPage = () => {
   const location = useLocation();
   const { product } = location.state || {};
   const [previwImage, setPreviewImage] = useState(product && product.thumbnail);
   const { addProductToUserCart, logedInUser } = useContext(ProductContext);
   const [descTab, setDescTab] = useState("description");
-  const [sizeToBuy,setSizeToBuy]=useState('M');
-  const [quantityToBuy,setQuantityToBuy]=useState(1)
-  const navigate=useNavigate();
+  const [sizeToBuy, setSizeToBuy] = useState("M");
+  const [quantityToBuy, setQuantityToBuy] = useState(1);
+  const navigate = useNavigate();
 
   console.log("product from product detail::", product);
 
-
   const handleAddToCartBtnClick = () => {
     if (logedInUser) {
-      addProductToUserCart(product,sizeToBuy,quantityToBuy);
-      
+      addProductToUserCart(product, sizeToBuy, quantityToBuy);
     } else {
-     toast.error("User not logined !")
+      toast.error("User not logined !");
     }
   };
-const handleBuyNowBtnClick=()=>{
-
-  if (logedInUser) {
-    navigate('/order',{state:{"product":product,"quantityToBuy":quantityToBuy,'sizeToBuy':sizeToBuy}})
-    
-  } else {
-   toast.error("User not logined !")
-  }
-}
+  const handleBuyNowBtnClick = () => {
+    if (logedInUser) {
+      navigate("/order", {
+        state: {
+          product: product,
+          quantityToBuy: quantityToBuy,
+          sizeToBuy: sizeToBuy,
+        },
+      });
+    } else {
+      toast.error("User not logined !");
+    }
+  };
   // const handleTabToggle = (selectedTab) => {
   //   setDescTab(selectedTab);
   // };
@@ -43,12 +45,11 @@ const handleBuyNowBtnClick=()=>{
     window.scrollTo(0, 0);
   }, []);
   return (
-    <div>
-    
+    <div className="w-full h-full">
       <hr />
-      <div className="flex gap-10 w-full h-[80vh] py-8">
-        <div className="w-1/2 flex gap-4 h-full">
-          <div className="flex flex-col h-full gap-4 w-[120px] ">
+      <div className="product-display-container ">
+        <div className="product-images-container ">
+          <div className="product-small-images  ">
             {product &&
               product.extraImages.map((image, index) => {
                 return (
@@ -57,14 +58,14 @@ const handleBuyNowBtnClick=()=>{
               })}
           </div>
 
-          <div className="bg-[rgba(0,0,0,0.1)]  px-2 h-full flex flex-1 justify-center items-center">
-            <img className="h-full" src={previwImage} alt="image" />
+          <div className="product-main-image ">
+            <img className="h-full " src={previwImage} alt="image" />
           </div>
         </div>
 
         {/* procuct description */}
 
-        <div className="w-1/2 text-start">
+        <div className="product-desc-container ">
           <h1 className="text-2xl font-semibold">{product && product.name}</h1>
           <div className="flex gap-1 text-orange-500 text-base mt-4">
             <i class="fa-solid fa-star"></i>
@@ -79,27 +80,33 @@ const handleBuyNowBtnClick=()=>{
           <div className="flex gap-2 mt-4 mb-8">
             {product &&
               product.sizes.map((size, index) => {
-                return <SizeSelectOption text={size} setSizeToBuy={setSizeToBuy} sizeToBuy={sizeToBuy} />;
+                return (
+                  <SizeSelectOption
+                    text={size}
+                    setSizeToBuy={setSizeToBuy}
+                    sizeToBuy={sizeToBuy}
+                  />
+                );
               })}
           </div>
 
-         <div className="flex gap-5">
-         <button
-            onClick={handleAddToCartBtnClick}
-            className="py-2 px-4 bg-black text-white hover:bg-[rgba(0,0,0,0.8)]"
-          >
-            ADD TO CART
-          </button>
-          <button
-            onClick={handleBuyNowBtnClick}
-            className="py-2 px-4 border-2 border-black text-black "
-          >
-            BUY NOW
-          </button>
-         </div>
+          <div className="flex gap-5">
+            <button
+              onClick={handleAddToCartBtnClick}
+              className="py-2 px-4 bg-black text-white hover:bg-[rgba(0,0,0,0.8)]"
+            >
+              ADD TO CART
+            </button>
+            <button
+              onClick={handleBuyNowBtnClick}
+              className="py-2 px-4 border-2 border-black text-black "
+            >
+              BUY NOW
+            </button>
+          </div>
         </div>
       </div>
-
+      {/* 
       <div className="my-10">
         <div className="flex">
           <div
@@ -124,7 +131,7 @@ const handleBuyNowBtnClick=()=>{
             ? product.fullDescription
             : "reviews are shown here"}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

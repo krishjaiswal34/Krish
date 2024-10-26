@@ -1,15 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
-import { SmallImage } from "./SmallImage/SmallImage";
-import { ProductContext } from "../contexts/ProductContext";
+import { SmallImage } from "../SmallImage/SmallImage";
+import { ProductContext } from "../../contexts/ProductContext";
 import Delete from "@mui/icons-material/Delete";
-import { DeleteBtn } from "./DeleteBtn/DeleteBtn";
+import { DeleteBtn } from "../DeleteBtn/DeleteBtn";
 import { faSave } from "@fortawesome/free-regular-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./SmallImage/SmallImage.css";
+import "../SmallImage/SmallImage";
 import { useNavigate } from "react-router-dom";
 
 const CartItemCard = ({
@@ -103,7 +103,7 @@ const CartItemCard = ({
       >
         <FontAwesomeIcon icon={faShoppingBag} />
       </div>
-      {/* <DeleteBtn  onclick={()=>removeProductFromUserCart(product_id)}/> */}
+     
     </div>
   );
 };

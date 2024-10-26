@@ -24,3 +24,17 @@
     width: 100%;
     transition: 0.4s ease-in-out;
 }
+.menu-bar-icon{
+    visibility: hidden;
+}
+
+@media (max-width:650px) {
+    .nav-options{
+       display: none;
+    }
+    .menu-bar-icon{
+        visibility: visible;
+    }
+
+
+}

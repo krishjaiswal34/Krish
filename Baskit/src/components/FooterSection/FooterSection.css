@@ -1,0 +1,11 @@
+.footer-section{
+display: flex;
+justify-content: space-between;
+gap: min(128px,5vw);
+}
+@media (max-width:700px) {
+    .footer-section{
+        flex-direction: column;
+        gap: 20px;
+    }
+}
