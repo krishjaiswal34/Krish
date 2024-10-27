@@ -1,5 +1,6 @@
 import React from 'react'
 import './FooterSection.css'
+import { NavLink } from 'react-router-dom'
 export const FooterSection = () => {
   return (
  <div className='mt-52  '>
@@ -13,12 +14,12 @@ export const FooterSection = () => {
 <div className='flex gap-20 h-full   justify-between text-start '>
 <div className='flex flex-col gap-4'>
   <h1 className='font-semibold text-xl'>COMPANY</h1>
-  <ul className='gap-2'>
-    <li>Home</li>
-    <li>Shop </li>
-    <li>Order</li>
-    <li>Contact us</li>
-  </ul>
+  <div className=' flex flex-col'>
+    <NavLink to={'/'} className='hover:underline'>Home</NavLink>
+    <NavLink  to={'shop'} className='hover:underline'>Shop </NavLink>
+    <NavLink to={'user-orders'} className='hover:underline'>Order</NavLink>
+    <NavLink to={'contact-us'} className='hover:underline'>Contact us</NavLink>
+  </div>
 </div>
 <div className='flex flex-col gap-4 '>
   <h1 className='font-semibold text-xl'>GET IN TOUCH</h1>

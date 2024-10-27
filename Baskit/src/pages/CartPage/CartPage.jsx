@@ -6,7 +6,7 @@ import { useColorScheme } from "@mui/material";
 import { ProductContext } from "../../contexts/ProductContext";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import CartItemCard from "../../components/CartItemCard/CartItemCard";
+
 import CartProduct from "../../components/CartProduct/CartProduct";
 
 const CartPage = () => {
