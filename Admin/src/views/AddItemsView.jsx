@@ -6,6 +6,7 @@ import {toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import CustomCheckbox from "../components/CustomCheckBox";
 export const AddItemsView = () => {
+  const SERVER_URL=import.meta.env.VITE_SERVER_URL
 const [thumbnail,setThumbnail]=useState();
 const [extraImages,setExtraImages]=useState({});
 const [name,setName]=useState('');
@@ -18,7 +19,7 @@ const [fullDescription,setFullDescription]=useState('');
 const [isFeatured,setIsFeatured]=useState(false)
 
 const handleThumbnailChange=(e)=>{
-  const SERVER_URL=import.meta.env.VITE_SERVER_URL
+ 
   console.log("Thumbnail changed")
   const image=e.target.files[0]
   setThumbnail(image)
