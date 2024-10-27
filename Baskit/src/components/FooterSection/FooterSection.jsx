@@ -7,8 +7,8 @@ export const FooterSection = () => {
      <div className='footer-section w-full  mb-5 flex justify-between  text-start '>
 
 <div className='flex flex-col gap-4 flex-1' >
-  <h1 className='font-semibold text-2xl'>BASKIT</h1>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
+  <h1 className='font-semibold text-2xl'>Stle Haven</h1>
+  <p>Your premier online destination for discovering the latest trends, timeless styles, and fashion essentials that cater to every individual. At Style Haven, we are passionate about fashion and believe it should be a reflection of your unique personality, mood, and lifestyle</p>
 </div>
 
 <div className='flex gap-20 h-full   justify-between text-start '>
@@ -25,8 +25,8 @@ export const FooterSection = () => {
   <h1 className='font-semibold text-xl'>GET IN TOUCH</h1>
  <ul>
  <li>+1-000-000-0000</li>
-    <li>prajapatianurag7320@gmail.com</li>
-    <li>Instagram</li>
+    <li>krishJaishwal@gmail.com</li>
+    <li>Google mail</li>
  </ul>
 
 </div>
@@ -34,7 +34,7 @@ export const FooterSection = () => {
 
     </div>
     <hr/>
-    <h1 className='py-5'>Copyright 2024@ Baskit - All Right Reserved.</h1>
+    <h1 className='py-5'>Copyright 2024@ Style Haven - All Right Reserved.</h1>
  </div>
   )
 }

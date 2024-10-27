@@ -29,7 +29,7 @@ export const NavBar = () => {
     <div className="flex justify-between items-center py-4 w-full ">
       <MenuSideBar isMenu={isMenu} handleMenuBarToggle={handleMenuBarToggle} />
       <NavLink to={"/"} className=" font-semibold text-3xl cursor-pointer">
-        BASKIT
+        Style Haven
       </NavLink>
 
       <div className="flex  gap-4 text-lg items-center ">
