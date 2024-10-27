@@ -5,11 +5,12 @@ import {toast} from 'react-toastify'
 
 const AdminContext = createContext();
 const AdminContextProvider = ({ children }) => {
+  const SERVER_URL=import.meta.env.VITE_SERVER_URL
   const [listedProducts, setListedProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const fetchOrders = () => {
     try {
-      fetch("http://localhost:8000/orders").then(async (response) => {
+      fetch(`${SERVER_URL}/orders`).then(async (response) => {
         if (response.ok) {
           const responeData = await response.json();
           console.log("resoponeData:", responeData);
@@ -25,7 +26,7 @@ const AdminContextProvider = ({ children }) => {
 
   const fetchListeProducts = () => {
     try {
-      fetch("http://localhost:8000/products").then(async (response) => {
+      fetch(`${SERVER_URL}/products`).then(async (response) => {
         if (response.ok) {
           const responeData = await response.json();
           console.log("resoponeData:", responeData);
@@ -42,7 +43,7 @@ const AdminContextProvider = ({ children }) => {
 
     try{
 
-      fetch('http://localhost:8000/updateOrderStatus',{
+      fetch(`${SERVER_URL}/updateOrderStatus`,{
         method:'POST',
         headers:{
           'content-type':'application/json'
@@ -71,7 +72,7 @@ const AdminContextProvider = ({ children }) => {
 const deleteAProduct=(_id)=>{
   try{
 
-    fetch(`http://localhost:8000/deleteAProduct/?product_id=${_id}`,{
+    fetch(`${SERVER_URL}/deleteAProduct/?product_id=${_id}`,{
       method:'DELETE',
       headers:{
         'content-type':'application/json'

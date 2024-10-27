@@ -27,10 +27,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 //PORT on that server run
-const PORT = 8000;
+const PORT =process.env.PORT||8000
+const DB_CONNECTION_STRING=process.env.MONGO_DB_CONNECTION_STRING
 //connecting server to DB
 
-mongoose.connect("mongodb://127.0.0.1:27017/BaskitDB");
+mongoose.connect(`${DB_CONNECTION_STRING}`);
 
 app.post(
   "/upload",

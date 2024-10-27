@@ -58,6 +58,7 @@ const FirebaseAuthContextProvider = ({ children }) => {
         })
         .catch((error) => {
           console.log("Error login user:", error);
+          
          
         });
     } catch (error) {

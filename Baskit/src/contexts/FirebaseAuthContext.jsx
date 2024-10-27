@@ -16,7 +16,7 @@ const FirebaseAuthContext = createContext();
 
 const FirebaseAuthContextProvider = ({ children }) => {
   const [logedInUser, setLogedInUser] = useState(null);
-
+  const SERVER_URL=import.meta.env.VITE_SERVER_URL
   const registerUserWithEmailAndPassword = async (email, password) => {
     try {
       const user = await createUserWithEmailAndPassword(

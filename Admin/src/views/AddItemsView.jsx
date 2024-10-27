@@ -18,6 +18,7 @@ const [fullDescription,setFullDescription]=useState('');
 const [isFeatured,setIsFeatured]=useState(false)
 
 const handleThumbnailChange=(e)=>{
+  const SERVER_URL=import.meta.env.VITE_SERVER_URL
   console.log("Thumbnail changed")
   const image=e.target.files[0]
   setThumbnail(image)
@@ -115,7 +116,7 @@ const formData=new FormData();
 
   //sending data to server
 
-  fetch('http://localhost:8000/upload',{
+  fetch(`${SERVER_URL}/upload`,{
     method:"POST",
     body:formData
   }).then(async (response)=>{

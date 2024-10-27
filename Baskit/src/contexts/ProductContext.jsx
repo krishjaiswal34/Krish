@@ -11,6 +11,7 @@ const ProductContextProvider = ({ children }) => {
   const [cartProducts, setCartProducts] = useState([]);
   const [logedInUser, setLogedInUser] = useState();
   const latesCollectionRef = useRef();
+  const SERVER_URL=import.meta.env.VITE_SERVER_URL
 
   const scrollToView = (sectionId) => {
     if (sectionId === "latestcollections") {
@@ -20,7 +21,7 @@ const ProductContextProvider = ({ children }) => {
 
   const fetchProducts = async () => {
     try {
-      fetch("http://localhost:8000/products").then(async (response) => {
+      fetch(`${SERVER_URL}/products`).then(async (response) => {
         const responseData = await response.json();
         console.log("fetched products:", responseData);
         setProducts(responseData.products);
@@ -31,7 +32,7 @@ const ProductContextProvider = ({ children }) => {
   };
 
   const fetchCartProducts = async () => {
-    fetch(`http://localhost:8000/cart?userAuthId=${logedInUser.uid}`).then(
+    fetch(`${SERVER_URL}/cart?userAuthId=${logedInUser.uid}`).then(
       async (response) => {
         if (response.ok) {
           const responseData = await response.json();
@@ -45,7 +46,7 @@ const ProductContextProvider = ({ children }) => {
   const addProductToUserCart = (product, sizeToBuy, quantityToBuy) => {
     const userAuthId = logedInUser.uid;
 
-    fetch("http://localhost:8000/addToCart", {
+    fetch(`${SERVER_URL}/addToCart`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -68,7 +69,7 @@ const ProductContextProvider = ({ children }) => {
   const removeProductFromUserCart = (product_id) => {
     const userAuthId = logedInUser.uid;
 
-    fetch("http://localhost:8000/removeProduct", {
+    fetch(`${SERVER_URL}/removeProduct`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -88,7 +89,7 @@ const ProductContextProvider = ({ children }) => {
   const updateCartProduct = (product_id, newQuantity) => {
     const userAuthId = logedInUser.uid;
 
-    fetch("http://localhost:8000/updateCartProduct", {
+    fetch(`${SERVER_URL}/updateCartProduct`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
