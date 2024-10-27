@@ -36,7 +36,7 @@ const ProductContextProvider = ({ children }) => {
         if (response.ok) {
           const responseData = await response.json();
           console.log("Cart data retrieved", responseData.cart);
-          setCartProducts(responseData.cart);
+          setCartProducts(responseData.cart.reverse());
         }
       }
     ).catch((err)=>{console.log("Error fetching cart products:",err);alert("Error fetching cart products")})

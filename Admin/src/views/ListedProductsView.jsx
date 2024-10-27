@@ -10,7 +10,7 @@ export const ListedProductsView = () => {
   return (
     <div className="py-6 px-10 text-start flex flex-1 flex-col gap-4">
       {listedProducts.length > 0 ? (
-        listedProducts.map((product) => {
+        listedProducts.reverse().map((product) => {
           return <ListedItemCard product={product} />;
         })
       ) : (

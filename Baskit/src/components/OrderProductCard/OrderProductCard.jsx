@@ -11,6 +11,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../SmallImage/SmallImage";
 import './OrderProductCard.css'
+import {formatDate} from '../../utils/formatDate'
 import { useNavigate } from "react-router-dom";
 const OrderProductCard = ({ orderDetail }) => {
   const {
@@ -56,17 +57,17 @@ const OrderProductCard = ({ orderDetail }) => {
     }
   };
   return (
-    <div className="w-full flex px-4 py-4 gap-6 h-[300px]">
+    <div className="w-full sm:flex px-4 py-4 gap-6 sm:h-[350px] ">
       <div
         onClick={() =>
           navigate("/product-detail", { state: { product: product } })
         }
-        className="w-1/3 bg-[rgba(0,0,0,0.1)] rounded-lg flex items-center justify-center product-image "
+        className="sm:w-1/3 w-full bg-[rgba(0,0,0,0.1)] rounded-lg flex items-center justify-center sm:product-image h-[300px] "
       >
         <img className="h-full" src={thumbnail} />
       </div>
       <div
-        className="w-2/3 flex flex-col gap-1 text-start
+        className="sm:w-2/3 w-full flex flex-col gap-1 text-start
 "
       >
         <div className="flex justify-between items-center text-xl w-full ">
@@ -100,6 +101,11 @@ const OrderProductCard = ({ orderDetail }) => {
         <div className="flex justify-between items-center text-lg w-full text-[rgba(0,0,0,0.6)] ">
           <h1 className=" ">Order id</h1>
           <h1>{orderId}</h1>
+        </div>
+        {/**ordered at */}
+        <div className="flex justify-between items-center text-lg w-full text-[rgba(0,0,0,0.6)] ">
+          <h1 className=" ">Ordered at</h1>
+          <h1>{formatDate(orderedAt)}</h1>
         </div>
 
         {/*Action buttons */}

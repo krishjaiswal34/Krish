@@ -38,20 +38,9 @@ const CartPage = () => {
       <div className="w-full min-h-[100vh] lg:flex  gap-8 mt-10">
         {/*all cart items list */}
         <div className="flex flex-col gap-4  w-full font-semibold">
-          {/* <div className="w-full px-2 py-4 flex justify-between items-center ">
-            <p className="w-2/6 flex items-center justify-center ">PRODUCT DETAIL</p>
-            <p className="w-1/6 flex items-center justify-center ">TOTAL PRICE</p>
-            <p className="w-1/6 flex items-center justify-center ">QUANTITY</p>
-            <p className="w-1/6 flex items-center justify-center ">Save</p>
-   
-            
-          
-            
-            <p className="w-1/6 flex items-center justify-center ">REMOVE</p>
-            <p className="w-1/6 flex items-center justify-center ">BUY NOW</p>
-          </div> */}
+      
           <div className="flex-1 flex flex-col gap-8 items-start">
-            {cartProducts?.map((pr, index) => {
+            {cartProducts.map((pr, index) => {
               const { product, product_id, sizeToBuy, quantityToBuy } = pr;
               return (
                 <CartProduct

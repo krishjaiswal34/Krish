@@ -15,7 +15,7 @@ const {orders}=useContext(AdminContext);
 
 {
   orders.length>0
-  ?orders.map((order)=>{
+  ?orders.reverse().map((order)=>{
 
     return <OrderItemCard orderDetail={order}/>
 
