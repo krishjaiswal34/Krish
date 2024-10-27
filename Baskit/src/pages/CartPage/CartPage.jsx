@@ -16,6 +16,7 @@ const CartPage = () => {
 
   const shippingFees = 15;
   console.log("cart product cart page:", cartProducts);
+  console.log("product from cart page;",products)
 
   useEffect(() => {
     var totalPrice = 0;
@@ -40,7 +41,7 @@ const CartPage = () => {
         <div className="flex flex-col gap-4  w-full font-semibold">
       
           <div className="flex-1 flex flex-col gap-8 items-start">
-            {cartProducts.map((pr, index) => {
+            {cartProducts?.map((pr, index) => {
               const { product, product_id, sizeToBuy, quantityToBuy } = pr;
               return (
                 <CartProduct
@@ -58,7 +59,7 @@ const CartPage = () => {
         </div>
         {/*checkout container */}
 
-        <div className="lg:w-1/3 w-full py-5 px-5 flex flex-col border-2 rounded-s max-h-[400px] gap-6">
+        <div className="lg:w-1/3 w-full py-5 px-5 flex flex-col border-2 rounded-s max-h-[300px] gap-6">
           <MainHeading text={"CART TOTALS"} />
 
           <div className="w-full flex flex-col gap-2">
@@ -74,11 +75,11 @@ const CartPage = () => {
             <hr />
             <div className="flex justify-between text-lg font-semibold">
               <p>Total</p>
-              <p>${shippingFees + subtotalPrice}</p>
+              <p>${parseFloat((shippingFees + subtotalPrice).toFixed(2))}</p>
             </div>
           </div>
 
-          <Button text={"PROCEED TO CHECKOUT"} />
+        
         </div>
       </div>
     </div>

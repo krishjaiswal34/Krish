@@ -112,7 +112,7 @@ const OrderProductCard = ({ orderDetail }) => {
         <div className="flex gap-4 mt-5 flex-wrap">
           <button
             onClick={() => handleBuyBtnClick()}
-            className="py-2 px-4 outline-none bg-black text-white"
+            className="py-2 px-4 outline-none bg-black text-white hover:bg-[rgba(0,0,0,0.8)]"
           >
             Buy again
           </button>

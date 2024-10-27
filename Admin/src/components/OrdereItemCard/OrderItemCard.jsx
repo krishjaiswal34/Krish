@@ -89,7 +89,7 @@ const OrderItemCard = ({ orderDetail }) => {
           </select>
           <button
             onClick={() => updateOrderStatus(orderDetail?._id, orderStatus)}
-            className="py-2 px-6 outline-none bg-black text-white"
+            className="py-2 px-6 outline-none bg-black text-white hover:bg-[rgba(0,0,0,0.8)]"
           >
             Save
           </button>

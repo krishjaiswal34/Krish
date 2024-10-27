@@ -55,7 +55,7 @@ const ListedItemCard = ({ product }) => {
         <div className="flex gap-4 mt-5 flex-wrap">
           <button
             onClick={() => deleteAProduct(product?._id)}
-            className="py-2 px-4 outline-none bg-black text-white"
+            className="py-2 px-4 outline-none bg-black text-white hover:bg-[rgba(0,0,0,0.8)]"
           >
             Remove
           </button>

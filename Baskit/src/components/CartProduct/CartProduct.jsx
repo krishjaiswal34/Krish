@@ -99,23 +99,24 @@ const CartProduct = ({
         </div>
         {/*Action buttons */}
         <div className="flex gap-4 mt-5 flex-wrap">
-          <button
-            onClick={() => handleBuyBtnClick()}
-            className="py-2 px-4 outline-none bg-black text-white"
-          >
-            Buy
-          </button>
+          
           <button
             onClick={() => updateCartProduct(product_id, productQuantity)}
-            className="py-2 px-4 outline-none border border-black text-black"
+            className="py-2 px-4 outline-none border border-black text-black hover:bg-[rgba(0,0,0,0.1)]"
           >
             Save
           </button>
           <button
             onClick={() => removeProductFromUserCart(product_id)}
-            className="py-2 px-4 outline-none border border-black text-black"
+            className="py-2 px-4 outline-none border border-black text-black hover:bg-[rgba(0,0,0,0.1)]"
           >
             Delete
+          </button>
+          <button
+            onClick={() => handleBuyBtnClick()}
+            className="py-2 px-4 outline-none bg-black  hover:bg-[rgba(0,0,0,0.8)] text-white"
+          >
+            Buy
           </button>
         </div>
       </div>

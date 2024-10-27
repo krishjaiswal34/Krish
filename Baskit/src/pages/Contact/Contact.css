@@ -1,51 +1,48 @@
-
-/*-------------*/
-.contact-icon, .social-ac-logo{
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    /* background-color:#008eb10f ;
-    color:#008eb1 ; */
-    transition: 0.4s ease-in-out;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-.contact-detail{
-    display: flex;
-    flex-direction: column;
-    flex: start;
-    text-align: start;
-}
-.contact-detail h1{
-    font-size: 20px;
-}
-.contact-detail p{
-    font-size: 16px;
+/* From Uiverse.io by Satwinder04 */ 
+.input-container {
+  position: relative;
+  margin: 50px auto;
+  width: 200px;
 }
 
-.contact-form input,textarea{
-   border-top: 0;
-   border-left: 0;
-   border-right: 0;
-    border-bottom: 2px solid gray;
-   
-    background-color: transparent;
-    padding: 10px 10px;
-outline: none;
+.input-container input[type="text"] {
+  font-size: 20px;
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  padding: 5px 0;
+  background-color: transparent;
+  outline: none;
 }
 
-
-.contact-form button{
-    width: min(250px,50vw);
-    border-radius: 25px;
-    height: 35px;
-   border:2px solid var(--primary-color);
-
+.input-container .label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #ccc;
+  transition: all 0.3s ease;
+  pointer-events: none;
 }
-.contact-form button:hover{
-    transition:  0.4s ease-in-out;
-    background-color: var(--primary-color);
+
+.input-container input[type="text"]:focus ~ .label,
+.input-container input[type="text"]:valid ~ .label {
+  top: -20px;
+  font-size: 16px;
+  color: #333;
+}
+
+.input-container .underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: #333;
+  transform: scaleX(0);
+  transition: all 0.3s ease;
+}
+
+.input-container input[type="text"]:focus ~ .underline,
+.input-container input[type="text"]:valid ~ .underline {
+  transform: scaleX(1);
 }

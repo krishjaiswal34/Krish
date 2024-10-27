@@ -38,9 +38,7 @@ export const ProductDetailPage = () => {
       toast.error("User not logined !");
     }
   };
-  // const handleTabToggle = (selectedTab) => {
-  //   setDescTab(selectedTab);
-  // };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -93,20 +91,20 @@ export const ProductDetailPage = () => {
           <div className="flex gap-5">
             <button
               onClick={handleAddToCartBtnClick}
-              className="py-2 px-4 bg-black text-white hover:bg-[rgba(0,0,0,0.8)]"
+              className="py-2 px-4 bg-black text-white  hover:bg-[rgba(0,0,0,0.8)]"
             >
               ADD TO CART
             </button>
             <button
               onClick={handleBuyNowBtnClick}
-              className="py-2 px-4 border-2 border-black text-black "
+              className="py-2 px-4 border-2 border-black text-black hover:bg-[rgba(0,0,0,0.1)]"
             >
               BUY NOW
             </button>
           </div>
         </div>
       </div>
-      {/* 
+
       <div className="my-10">
         <div className="flex">
           <div
@@ -126,12 +124,12 @@ export const ProductDetailPage = () => {
             Reviews
           </div>
         </div>
-        <div className="border-2 py-6 px-4">
+        <div className="border-2 py-6 px-4 text-wrap ">
           {descTab === "description"
             ? product.fullDescription
             : "reviews are shown here"}
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
