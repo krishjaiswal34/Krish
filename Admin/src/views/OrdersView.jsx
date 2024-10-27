@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import ListedProductCard from '../components/ListedProductCard'
-import OrderProductCard from '../components/OrderProductCard'
+
+
 import { useContext } from 'react'
 import { AdminContext } from '../contexts/adminContext'
+import OrderItemCard from '../components/OrdereItemCard/OrderItemCard';
 
 export const OrdersView = () => {
   
@@ -16,7 +17,7 @@ const {orders}=useContext(AdminContext);
   orders.length>0
   ?orders.map((order)=>{
 
-    return <OrderProductCard order={order}/>
+    return <OrderItemCard orderDetail={order}/>
 
   }):<p>No  Ordered products</p>
 

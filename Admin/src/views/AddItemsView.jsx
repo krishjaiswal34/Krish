@@ -140,7 +140,7 @@ useEffect(()=>{
 
 
   return (
-    <form onSubmit={handleFormSubmit} className="py-6 px-10 text-start flex flex-col gap-4">
+    <form onSubmit={handleFormSubmit} className="py-6 px-10 text-start flex flex-col gap-4 ">
 
       {/* product Thumbnail */}
      <div className="flex flex-col gap-2">
@@ -152,7 +152,7 @@ useEffect(()=>{
 
 
 
-      <div className="flex gap-5">
+      <div className="flex gap-5 flex-wrap">
         <ProductExtraIamge inputChange={handleExtraImagesChange} fieldName={'e1'}/>
         <ProductExtraIamge  inputChange={handleExtraImagesChange} fieldName={'e2'}/>
         <ProductExtraIamge inputChange={handleExtraImagesChange} fieldName={'e3'} />
@@ -160,7 +160,7 @@ useEffect(()=>{
       </div>
 
      </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 ">
         <h1>Product name</h1>
         <input
         name="name"
@@ -181,7 +181,7 @@ useEffect(()=>{
         />
       </div>
       {/*--catgory , price, subcategory */}
-      <div className="w-full flex gap-4">
+      <div className="w-full flex gap-4 flex-wrap">
         <div className="flex flex-col gap-2">
           <h1>Product category</h1>
           <select
@@ -225,7 +225,7 @@ useEffect(()=>{
       {/*product sizes */}
    <div className="flex flex-col gap-2">
     <h1>Product sizes</h1>
-    <div className="flex gap-4">
+    <div className="flex gap-4 flex-wrap">
         <ProductSize  text={"S"}  sizes={sizes} setSizes={setSizes}/>
         <ProductSize text={"M"}  sizes={sizes} setSizes={setSizes}/>
         <ProductSize text={"L"}  sizes={sizes} setSizes={setSizes}/>
