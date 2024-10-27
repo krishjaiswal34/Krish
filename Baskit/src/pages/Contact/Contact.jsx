@@ -105,10 +105,9 @@ function Contact() {
           <div className="contact-form flex-1 border shadow-lg text-start px-8 py-8 mt-5 md:mt-0">
             <h1 className="font-bold text-2xl">Send Message</h1>
             <p className="text-gray-600">
-              sing Lorem Ipsum is that it has a more-or-less normal distribution
-              of letters,{" "}
+              Your thoughts make a difference! Share your feedback and help us
+              grow together.{" "}
             </p>
-
             <form
               onSubmit={handleSubmit}
               className="flex flex-col gap-4 text-start items-start"
@@ -137,7 +136,10 @@ function Contact() {
                 className="w-full border-b-2 border-black outline-none px-2 py-2 max-w-[400px] mt-7"
                 onChange={handleChange}
               />
-              <button type="submit" className="px-4 py-2 bg-black hover:bg-[rgba(0,0,0,0.8)] text-white">
+              <button
+                type="submit"
+                className="px-4 py-2 bg-black hover:bg-[rgba(0,0,0,0.8)] text-white"
+              >
                 SUBMIT
               </button>
             </form>

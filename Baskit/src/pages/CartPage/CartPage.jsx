@@ -1,10 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import MainHeading from "../../components/MainHeading";
 
-import { Button } from "../../components/Button";
-import { useColorScheme } from "@mui/material";
 import { ProductContext } from "../../contexts/ProductContext";
-import { toast, ToastContainer } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
 
 import CartProduct from "../../components/CartProduct/CartProduct";
@@ -16,7 +14,7 @@ const CartPage = () => {
 
   const shippingFees = 15;
   console.log("cart product cart page:", cartProducts);
-  console.log("product from cart page;",products)
+  console.log("product from cart page;", products);
 
   useEffect(() => {
     var totalPrice = 0;
@@ -39,7 +37,6 @@ const CartPage = () => {
       <div className="w-full min-h-[100vh] lg:flex  gap-8 mt-10">
         {/*all cart items list */}
         <div className="flex flex-col gap-4  w-full font-semibold">
-      
           <div className="flex-1 flex flex-col gap-8 items-start">
             {cartProducts?.map((pr, index) => {
               const { product, product_id, sizeToBuy, quantityToBuy } = pr;
@@ -54,7 +51,6 @@ const CartPage = () => {
                 />
               );
             })}
-         
           </div>
         </div>
         {/*checkout container */}
@@ -78,8 +74,6 @@ const CartPage = () => {
               <p>${parseFloat((shippingFees + subtotalPrice).toFixed(2))}</p>
             </div>
           </div>
-
-        
         </div>
       </div>
     </div>
