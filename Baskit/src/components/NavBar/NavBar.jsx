@@ -26,7 +26,7 @@ export const NavBar = () => {
   };
 
   return (
-    <div className="flex justify-between items-center py-4 w-full ">
+    <div className="flex justify-between items-center py-4 w-full border-b-2">
       <MenuSideBar isMenu={isMenu} handleMenuBarToggle={handleMenuBarToggle} />
       <NavLink to={"/"} className=" font-semibold text-3xl cursor-pointer">
         Style Haven
