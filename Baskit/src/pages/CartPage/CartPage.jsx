@@ -12,7 +12,7 @@ const CartPage = () => {
   const [subtotalPrice, setSubtotalPrice] = useState(0);
   const [eachProductTotalPrice, setEachProductTotalPrice] = useState({});
 
-  const shippingFees = 15;
+  const shippingFees = 0;
   console.log("cart product cart page:", cartProducts);
   console.log("product from cart page;", products);
 
