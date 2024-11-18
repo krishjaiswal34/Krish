@@ -61,17 +61,17 @@ const CartPage = () => {
           <div className="w-full flex flex-col gap-2">
             <div className="flex justify-between">
               <p>Sub total</p>
-              <p>${subtotalPrice}</p>
+              <p>₹{subtotalPrice}</p>
             </div>
             <hr />
             <div className="flex justify-between">
               <p>Shipping fees</p>
-              <p>${shippingFees}</p>
+              <p>₹{shippingFees}</p>
             </div>
             <hr />
             <div className="flex justify-between text-lg font-semibold">
               <p>Total</p>
-              <p>${parseFloat((shippingFees + subtotalPrice).toFixed(2))}</p>
+              <p>₹{parseFloat((shippingFees + subtotalPrice).toFixed(2))}</p>
             </div>
           </div>
         </div>

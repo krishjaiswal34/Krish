@@ -11,7 +11,7 @@ export const HeroSection = () => {
 <div className='hero-desc  px-5 text-start  '>
 
 <h1 className='hero-section-heading font-bold mb-5 '>Elevate Your Everyday Look</h1>
-<p className='hero-section-subheading'>Discover the latest trends in men's fashion. Find your perfect look, whether casual, business, or street style ,Discover the latest trends in men's fashion. Find your perfect look, whether casual, business, or street style.</p>
+<p className='hero-section-subheading'>Discover the latest trends in  fashion. Find your perfect look, whether casual, business, or street style ,Discover the latest trends in men's fashion. Find your perfect look, whether casual, business, or street style.</p>
 {/* <button className='bg-[black] text-white text-lg px-4 py-2 rounded-full mt-7 '>Shop Now</button> */}
 
 <button

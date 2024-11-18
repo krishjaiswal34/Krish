@@ -62,7 +62,7 @@ const CartProduct = ({
       >
         <div className="flex justify-between items-center text-xl w-full ">
           <h1 className=" ">{name}</h1>
-          <h1>${price}</h1>
+          <h1>₹{price}</h1>
         </div>
         <div className="flex justify-between items-center text-[rgba(0,0,0,0.6)] text-lg w-full ">
           <h1 className=" ">Size</h1>
@@ -95,7 +95,7 @@ const CartProduct = ({
         {/*total price */}
         <div className="flex justify-between items-center text-lg w-full ">
           <h1 className=" ">Total price</h1>
-          <h1>${totalPrice}</h1>
+          <h1>₹{totalPrice}</h1>
         </div>
         {/*Action buttons */}
         <div className="flex gap-4 mt-5 flex-wrap">

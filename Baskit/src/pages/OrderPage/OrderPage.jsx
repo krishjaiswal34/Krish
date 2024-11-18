@@ -27,7 +27,7 @@ const OrderPage = () => {
   });
   const productQnty =  quantityToBuy
   const productPrice = parseInt(product.price);
-  const shippingPrice = 15;
+  const shippingPrice = 0;
   const tax = 8.02;
   const subTotal=productQnty*productPrice;
   // Handle form input changes
@@ -211,20 +211,20 @@ const OrderPage = () => {
             </div>
             <div className="flex justify-between ">
               <span>subtotal</span>
-              <span>${subTotal}</span>
+              <span>₹{subTotal}</span>
             </div>
             <div className="flex justify-between text-sm text-gray-500">
               <span>Shipping</span>
-              <span>${shippingPrice}</span>
+              <span>₹{shippingPrice}</span>
             </div>
             <div className="flex justify-between text-sm text-gray-500">
               <span>Tax</span>
-              <span>${tax}</span>
+              <span>₹{tax}</span>
             </div>
           </div>
           <div className="flex justify-between font-semibold">
             <span>Total</span>
-            <span>${subTotal + shippingPrice + tax}</span>
+            <span>₹{subTotal + shippingPrice + tax}</span>
           </div>
           <button
             onClick={()=>handlePlaceOrder()}

@@ -10,6 +10,7 @@ import Contact from '../pages/Contact/Contact'
 import { ShopPage } from '../pages/ShopPage/ShopPage'
 import OrderPage from '../pages/OrderPage/OrderPage'
 import UserOrdersPage from '../pages/UserOrdersPage/UserOrdersPage'
+import AboutUs from '../pages/AboutUs'
 
 
 
@@ -42,6 +43,10 @@ children:[
     },{
         path:'user-orders',
         element:<UserOrdersPage/>
+    },
+    {
+        path:'about-us',
+        element:<AboutUs/>
     }
 ]
     },

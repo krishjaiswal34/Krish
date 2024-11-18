@@ -5,7 +5,16 @@
   padding-right:2rem;
   padding-left: 2rem;
   text-align: center;
-  --primary-color:rgba(0,0,0,0.1)
+  --primary-color:rgba(0,0,0);
+  /* --primary-color:rgba(0,0,0,0.1); */
+  --secondary-color:rgba(0,0,0,0.1);
+  --dark-bg-color:rgba(0,0,0);
+}
+.md-hide{
   
 }
-
+@media (max-width:768px) {
+  .md-hide{
+    display: none;
+  }
+}

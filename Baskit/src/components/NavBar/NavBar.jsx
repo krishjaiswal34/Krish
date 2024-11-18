@@ -28,7 +28,7 @@ export const NavBar = () => {
   return (
     <div className="flex justify-between items-center py-4 w-full border-b-2">
       <MenuSideBar isMenu={isMenu} handleMenuBarToggle={handleMenuBarToggle} />
-      <NavLink to={"/"} className=" font-semibold text-3xl cursor-pointer">
+      <NavLink to={"/"} className="company-logo font-semibold text-4xl cursor-pointer">
         Style Haven
       </NavLink>
 
@@ -59,6 +59,12 @@ export const NavBar = () => {
             to={"contact-us"}
           >
             Contact us
+          </NavLink>
+          <NavLink
+            className="font-semibold nav-options-hover-animation "
+            to={"about-us"}
+          >
+            About us
           </NavLink>
           <p>|</p>
         </div>

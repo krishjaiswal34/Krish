@@ -21,7 +21,7 @@ export const ProductCard = ({name,price,thumbnail , productVeiwClick}) => {
 <i class="fa-regular fa-star"></i>
 </div>
 <div className='flex  items-center'>
-<p className='product-price'>{'$'+price}</p>
+<p className='product-price'>{'₹'+price}</p>
 {/* <i class="fa-regular fa-heart cursor-pointer"></i> */}
 </div>
 

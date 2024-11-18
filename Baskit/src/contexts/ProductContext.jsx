@@ -8,6 +8,7 @@ import { toast, ToastContainer } from "react-toastify";
 const ProductContext = createContext();
 const ProductContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
+  const [shopProducts,setShopProducts]=useState(products);
   const [cartProducts, setCartProducts] = useState([]);
   const [logedInUser, setLogedInUser] = useState();
   const latesCollectionRef = useRef();
@@ -116,6 +117,40 @@ const ProductContextProvider = ({ children }) => {
         console.warn("Unexpectedc error", err);
       });
   };
+
+
+  const addProductRating = (product_id, comment, rating) => {
+    const userEmail = logedInUser?.email;
+    const userName = logedInUser.displayName
+      ? logedInUser.displayName
+      : "No name";
+    console.log("ll", product_id, comment, rating, userEmail);
+    fetch(`${SERVER_URL}/productRatingAndReview`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        product_id,
+        comment,
+        rating,
+        userEmail,
+        userName,
+      }),
+    })
+      .then(async (response) => {
+        if (response.ok) {
+          const responseData = await response.json();
+          if (responseData) {
+            toast.success("Thanks for adding review !");
+          }
+        }
+      })
+      .catch((err) => {
+        toast.error("Unexpected error");
+      });
+  };
+
   useEffect(() => {
     const userResult = onAuthStateChanged(firebaseAuth, (user) => {
       setLogedInUser(user);
@@ -144,6 +179,9 @@ const ProductContextProvider = ({ children }) => {
         updateCartProduct,
         latesCollectionRef,
         scrollToView,
+        addProductRating,
+        shopProducts,
+        setShopProducts
       }}
     >
       {children}

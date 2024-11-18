@@ -10,7 +10,8 @@ const {
   getAllCartProducts,
   removeProductFromCart,
   updateCartProduct,
-  delteAProduct
+  delteAProduct,
+  setProductRatingAndReview
 } = require("./controllers/productController");
 const { registerUser } = require("./controllers/userController");
 const {
@@ -66,5 +67,6 @@ app.get("/orders", getAllOrders);
 app.post("/updateOrderStatus", updateOrderStatus);
 //to delete a product
 app.delete('/deleteAProduct',delteAProduct);
-
+//seting review and rating for a product
+app.post("/productRatingAndReview", setProductRatingAndReview);
 app.listen(PORT, () => console.log("Server started at :", PORT));

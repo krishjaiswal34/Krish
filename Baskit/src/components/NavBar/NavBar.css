@@ -1,4 +1,6 @@
-
+.company-logo{
+    font-family:"Aladin", system-ui;;
+}
 .nav-options-hover-animation{
     position:relative;
     display: flex;

@@ -224,3 +224,34 @@ if (deletedProduct) {
   }
 
 }
+
+exports.setProductRatingAndReview = async (req, res) => {
+  try {
+    const { product_id, comment, rating, userEmail, userName } = req.body;
+    console.log("ll", product_id, comment, rating, userEmail, userName);
+    const updatedProduct = await ProductModel.findOneAndUpdate(
+      { _id: product_id },
+      {
+        $push: {
+          reviews: {
+            userEmail,
+            userName,
+            rating,
+            comment,
+          },
+        },
+      },
+      { new: true }
+    );
+
+    if (updatedProduct) {
+      return res
+        .status(200)
+        .json({ success: "Reviews and rating added successfully" });
+    } else {
+      return res.status(400).json({ error: "Error adding rating" });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: "Server error" });
+  }
+};
