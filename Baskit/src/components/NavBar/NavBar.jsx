@@ -80,7 +80,7 @@ export const NavBar = () => {
               }
               className="h-[30px] w-[30px] rounded-full flex items-center justify-center font-semibold  bg-[rgba(0,0,0,0.2)] cursor-pointer"
             >
-              A
+              {logedInUser?.email[0]}
             </div>
             <div
               className={`profile-popup absolute top-[110%] right-0 z-10 flex flex-col items-end ${
