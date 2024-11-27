@@ -21,6 +21,7 @@ const {
   updateOrderStatus,
 } = require("./controllers/orderController");
 const uploadProductImages = require("./middlewares/uploadProductImagesMiddleware");
+const { handleFeedback } = require("./controllers/feedbackController");
 dotenv.config();
 //creating express app
 
@@ -32,7 +33,7 @@ const PORT =process.env.PORT||8000
 const DB_CONNECTION_STRING=process.env.MONGO_DB_CONNECTION_STRING
 //connecting server to DB
 
-mongoose.connect(`${DB_CONNECTION_STRING}`);
+mongoose.connect(`${DB_CONNECTION_STRING}`).then(()=>console.log("db connected")).catch((err)=>console.log("db connection error:",err))
 
 app.post(
   "/upload",
@@ -69,4 +70,6 @@ app.post("/updateOrderStatus", updateOrderStatus);
 app.delete('/deleteAProduct',delteAProduct);
 //seting review and rating for a product
 app.post("/productRatingAndReview", setProductRatingAndReview);
+
+app.post('/feedback',handleFeedback)
 app.listen(PORT, () => console.log("Server started at :", PORT));
