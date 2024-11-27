@@ -94,20 +94,7 @@ const user=await registerUserWithEmailAndPassword(email,password)
     <button type='submit'  class="button-submit">Sign Up</button>
     <p class="p">Don't have an account? <span onClick={()=>navigate('/login')} class="span">Login</span></p>
 
-    {/* </p><p class="p line">Or With</p>
 
-    <div class="flex-row">
-      <div class="btn google">
-
-   
-        Google 
-        
-      </div><div class="btn apple">
-
-
-        Apple 
-        
-</div></div>*/}
 
 </form> 
 

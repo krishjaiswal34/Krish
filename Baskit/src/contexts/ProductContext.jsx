@@ -24,7 +24,7 @@ const ProductContextProvider = ({ children }) => {
     try {
       fetch(`${SERVER_URL}/products`).then(async (response) => {
         const responseData = await response.json();
-        console.log("fetched products:", responseData);
+   
         setProducts(responseData.products);
       });
     } catch (error) {
@@ -37,11 +37,11 @@ const ProductContextProvider = ({ children }) => {
       async (response) => {
         if (response.ok) {
           const responseData = await response.json();
-          console.log("Cart data retrieved", responseData.cart);
+         
           setCartProducts(responseData.cart.reverse());
         }
       }
-    ).catch((err)=>{console.log("Error fetching cart products:",err);alert("Error fetching cart products")})
+    ).catch((err)=>{console.log("Error fetching cart products:",err);})
   };
 
   const addProductToUserCart = (product, sizeToBuy, quantityToBuy) => {
@@ -84,7 +84,7 @@ const ProductContextProvider = ({ children }) => {
         fetchCartProducts();
         toast.success("Product removed !", { position: "top-right" });
       })
-      .catch(() => alert("Unexpected error"));
+      .catch((err) => console.log("error:",err));
   };
 
   const updateCartProduct = (product_id, newQuantity) => {
@@ -102,7 +102,7 @@ const ProductContextProvider = ({ children }) => {
       }),
     })
       .then(async (response) => {
-        console.log("updated cart product is ok")
+       
         if (response.ok) {
           const responseData = await response.json();
 
@@ -113,7 +113,7 @@ const ProductContextProvider = ({ children }) => {
         }
       })
       .catch((err) => {
-        alert("Unexpected error");
+       
         console.warn("Unexpectedc error", err);
       });
   };

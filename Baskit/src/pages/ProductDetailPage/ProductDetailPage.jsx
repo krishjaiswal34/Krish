@@ -25,7 +25,7 @@ export const ProductDetailPage = () => {
 
   const navigate = useNavigate();
 
-  console.log("product from product detail::", product);
+
 
   const handleAddToCartBtnClick = () => {
     if (logedInUser) {

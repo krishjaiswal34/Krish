@@ -13,18 +13,17 @@ const CartPage = () => {
   const [eachProductTotalPrice, setEachProductTotalPrice] = useState({});
 
   const shippingFees = 0;
-  console.log("cart product cart page:", cartProducts);
-  console.log("product from cart page;", products);
+
 
   useEffect(() => {
     var totalPrice = 0;
     if (eachProductTotalPrice) {
       Object.keys(eachProductTotalPrice).map((product) => {
-        console.log("Each product totalPrice:", eachProductTotalPrice[product]);
+
         const { price, productQuantity } = eachProductTotalPrice[product];
-        console.log("p:", price, "tq:", productQuantity);
+  
         const totalPriceForAproduct = price * productQuantity;
-        console.log("toatalpricefor aproduct:", totalPriceForAproduct);
+      
         totalPrice += totalPriceForAproduct;
       });
       setSubtotalPrice(totalPrice);

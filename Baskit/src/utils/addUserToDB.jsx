@@ -1,6 +1,7 @@
 export const addUserToDB=(userAuthId)=>{
-    console.log("userAuthId:frm adduser to db:",userAuthId)
-    fetch('http://localhost:8000/user',{
+
+const SERVER_URL=import.meta.env.VITE_SERVER_URL
+    fetch(`${SERVER_URL}/user`,{
         method:"POST",
         headers:{
             "content-type":"application/json"

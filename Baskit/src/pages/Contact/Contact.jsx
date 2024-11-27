@@ -40,7 +40,7 @@ function Contact() {
       )
       .then(
         (respone) => {
-          console.log("SUCCESS !!", respone.status, respone.text);
+         
           toast.success("Messae Successfully sent !");
         },
         (error) => {

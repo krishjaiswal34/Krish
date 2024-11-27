@@ -8,7 +8,7 @@ const OrderPage = () => {
   const [paymentMethod, setPaymentMethod] = useState("Card");
   const { product,quantityToBuy,sizeToBuy } = useLocation().state;
   const { logedInUser } = useContext(FirebaseAuthContext);
-  console.log("ordered product:", product);
+
 
   //store form data
   const [formData, setFormData] = useState({
@@ -38,7 +38,7 @@ const OrderPage = () => {
   // Handle form submission (validation and sending data to backend)
   const handlePlaceOrder = () => {
     // Check if all fields are filled
-    console.log("formdat :", formData);
+
     const {
       name,
       address1,
@@ -78,7 +78,7 @@ const OrderPage = () => {
         }).then(async (response) => {
           if (response.ok) {
             const responseData =await response.json();
-            console.log("response data after placing order:", responseData);
+         
             toast.success("Order placed successfully");
           } else {
             toast.error("Error placing order");

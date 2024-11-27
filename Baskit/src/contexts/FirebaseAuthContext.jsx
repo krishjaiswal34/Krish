@@ -30,7 +30,7 @@ const FirebaseAuthContextProvider = ({ children }) => {
           if(user){
             console.log("user::::",user)
             const { uid } = user.user;
-            console.log("Registered user:", uid);
+         
             toast.success("Registered successfully !")
             addUserToDB(uid);
           }
@@ -51,7 +51,7 @@ const FirebaseAuthContextProvider = ({ children }) => {
         password
       )
         .then((user) => {
-          console.log("Logined user:", user);
+        
           if(user){
             toast.success("Logined Successfully !")
           }
@@ -61,7 +61,7 @@ const FirebaseAuthContextProvider = ({ children }) => {
          
         });
     } catch (error) {
-      alert("Unexpected Error");
+     
       toast.error("Wrong Email or Password");
     }
   };
@@ -71,7 +71,7 @@ const FirebaseAuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const logedInUser = onAuthStateChanged(firebaseAuth, (user) => {
-      console.log("logedInUser::", user);
+    
       setLogedInUser(user);
     });
   }, []);

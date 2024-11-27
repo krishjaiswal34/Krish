@@ -6,7 +6,7 @@ import { ProductContext } from '../contexts/ProductContext'
 
 export const CartIcon = () => {
   const {cartProducts}=useContext(ProductContext)
-  console.log("cart products:",cartProducts)
+
     const navigate=useNavigate();
   return (
     <div onClick={()=>navigate('cart')} className='relative cursor-pointer'>
