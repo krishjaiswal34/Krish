@@ -8,7 +8,7 @@ import { CartIcon } from "../CartIcon";
 import { useContext } from "react";
 
 import { FirebaseAuthContext } from "../../contexts/FirebaseAuthContext";
-import "./navBAr.css";
+import "./navBar.css";
 import MenuSideBar from "../MenuSideBar";
 
 export const NavBar = () => {

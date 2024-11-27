@@ -2,11 +2,11 @@ import React, { useContext } from 'react'
 import { HeroSection } from '../../components/HeroSection/HeroSection'
 import MainHeading from '../../components/MainHeading'
 import { Subheading } from '../../components/Subheading'
-import { ProductCard } from '../../components/ProductCard/ProductCard'
+
 import { ProductList } from '../../components/ProductList/ProductList'
 import { ProductContext } from '../../contexts/ProductContext'
 import Offerings from '../../components/Offerings/Offerings'
-import { ToastContainer } from 'react-toastify'
+
 
 
 export const HomePage = () => {

@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faGithub,
-  faLinkedin,
-  faXTwitter,
-} from "@fortawesome/free-brands-svg-icons";
+
 import "./Contact.css";
 import bannerImage from "../../assets/Images/b1.jpg";
 import {
@@ -17,7 +13,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import MainHeading from "../../components/MainHeading";
 import Banner from "../../components/Banner";
-import { Button } from "../../components/Button";
+
 import { toast } from "react-toastify";
 import emailjs from "@emailjs/browser";
 // import emailjs from "@emailjs/browser";

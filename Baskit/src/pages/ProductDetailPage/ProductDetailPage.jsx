@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import SizeSelectOption from "../../components/SizeSelectOption";
-import { Button } from "../../components/Button";
+
 import { SmallImage } from "../../components/SmallImage/SmallImage";
 import { ProductContext } from "../../contexts/ProductContext";
 import { toast } from "react-toastify";
 import "./ProductDetailPage.css";
 import ReviewCard from "../../components/ReviewCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMessage } from "@fortawesome/free-regular-svg-icons";
+
 import { faCodePullRequest, faPlus, faX } from "@fortawesome/free-solid-svg-icons";
 import StarRating from "../../components/StarRating";
 import {getAverageRating} from '../../utils/getAverageRating'

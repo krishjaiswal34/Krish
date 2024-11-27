@@ -1,6 +1,6 @@
 import React from 'react'
 import './ProductList.css'
-import { ProductCard } from '../ProductCard/ProductCard'
+
 import { ProductCardContainer } from '../../container/ProductCardContainer'
 
 export const ProductList = ({products,featured=false,all=false}) => {
