@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import CartProduct from "../../components/CartProduct/CartProduct";
 
-const CartPage = () => {
+export const CartPage = () => {
   const { products, cartProducts } = useContext(ProductContext);
   const [subtotalPrice, setSubtotalPrice] = useState(0);
   const [eachProductTotalPrice, setEachProductTotalPrice] = useState({});
@@ -79,4 +79,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+
