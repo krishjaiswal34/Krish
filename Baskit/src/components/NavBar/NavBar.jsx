@@ -58,13 +58,13 @@ export const NavBar = () => {
             className="font-semibold nav-options-hover-animation "
             to={"contact-us"}
           >
-            Contact us
+            Contact
           </NavLink>
           <NavLink
             className="font-semibold nav-options-hover-animation "
             to={"about-us"}
           >
-            About us
+            About
           </NavLink>
           <p>|</p>
         </div>

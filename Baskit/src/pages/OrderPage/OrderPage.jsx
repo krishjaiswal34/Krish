@@ -105,14 +105,14 @@ const SERVER_URL=import.meta.env.VITE_SERVER_URL
   };
 
   return (
-    <div className="min-h-screen flex flex-col gap-2 justify-center items-center  p-6 text-start">
+    <div className="min-h-screen flex flex-col gap-2 justify-center items-center  text-start">
       <MainHeading text={"ORDER"} />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl">
         {/* Shipping Address */}
         <div className="bg-white p-6 rounded-lg shadow-md col-span-2">
           <h2 className="text-lg font-semibold mb-4">Shipping Address</h2>
           <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
+            <div className="col-span-2">
               <label className="block mb-2 text-sm font-semibold">Name</label>
               <input
                 name="name"
