@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom'
 
 const SideBar = () => {
   return (
-    <div className="min-h-[100vh] border-r-2 w-1/5 py-6 flex flex-col gap-5">
+    <div className="sm:min-h-[100vh] sm:border-r-2 sm:w-1/5 py-6 flex sm:flex-col gap-5 flex-wrap">
       <NavLink
         to="/"
         className={({ isActive }) =>

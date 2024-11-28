@@ -1,7 +1,8 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
- 
+ padding-left: 2rem;
+ padding-right: 2rem;
   text-align: center;
 }
 *{
@@ -10,4 +11,11 @@
 
 .company-logo{
   font-family:"Aladin", system-ui;
+}
+
+@media (max-width:768px) {
+  #root{
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }

@@ -27,7 +27,7 @@ navigate('/login')
      <NavBar/>
      
     
-     <div className='border-t-2 flex'>
+     <div className='border-t-2 sm:flex '>
       <SideBar/>
 
 
