@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCodePullRequest, faPlus, faX } from "@fortawesome/free-solid-svg-icons";
 import StarRating from "../../components/StarRating";
 import {getAverageRating} from '../../utils/getAverageRating'
+import { Loader } from "../../components/Loader/Loader";
 export const ProductDetailPage = () => {
   const location = useLocation();
   const { product } = location.state || {};
@@ -22,6 +23,7 @@ export const ProductDetailPage = () => {
   const [quantityToBuy, setQuantityToBuy] = useState(1);
   const [rating,setRating]=useState();
   const [comment,setComment]=useState('');
+ 
 
   const navigate = useNavigate();
 
@@ -29,9 +31,20 @@ export const ProductDetailPage = () => {
 
   const handleAddToCartBtnClick = () => {
     if (logedInUser) {
-      addProductToUserCart(product, sizeToBuy, quantityToBuy);
+
+
+
+
+      
+         addProductToUserCart(product, sizeToBuy, quantityToBuy);
+     
+      
+
+
+
+
     } else {
-      toast.error("User not logined !");
+      toast.error("User not logined !",{style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'});
     }
   };
   const handleBuyNowBtnClick = () => {
@@ -44,7 +57,7 @@ export const ProductDetailPage = () => {
         },
       });
     } else {
-      toast.error("User not logined !");
+      toast.error("User not logined !",{style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'});
     }
   };
 
@@ -151,6 +164,7 @@ export const ProductDetailPage = () => {
           ))}
           <form
             onSubmit={(e) => {
+
               e.preventDefault();
               addProductRating(product?._id, comment, rating);
             }}
@@ -179,7 +193,7 @@ export const ProductDetailPage = () => {
         </div>
       </div>
 {/**rating */}
-     
+
     </div>
   );
 };

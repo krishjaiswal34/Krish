@@ -8,7 +8,7 @@ const OrderPage = () => {
   const [paymentMethod, setPaymentMethod] = useState("Card");
   const { product,quantityToBuy,sizeToBuy } = useLocation().state;
   const { logedInUser } = useContext(FirebaseAuthContext);
-
+const SERVER_URL=import.meta.env.VITE_SERVER_URL
 
   //store form data
   const [formData, setFormData] = useState({
@@ -63,8 +63,9 @@ const OrderPage = () => {
       expiryMonth ||
       cvv
     ) {
+      const id=toast.loading("Placing order",{style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
       try {
-        fetch("http://localhost:8000/placeOrder", {
+        fetch(`${SERVER_URL}/placeOrder`, {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -79,18 +80,27 @@ const OrderPage = () => {
           if (response.ok) {
             const responseData =await response.json();
          
-            toast.success("Order placed successfully");
+            toast.update(id,{ render: "Order placed successfully",
+            type: "success", // Change type to 'success' to get green color
+            isLoading: false, // Mark it as not loading anymore
+            autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
           } else {
-            toast.error("Error placing order");
+            toast.update(id,{ render: "Error placing order",
+            type: "error", // Change type to 'success' to get green color
+            isLoading: false, // Mark it as not loading anymore
+            autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
           }
         }).catch((err)=>{
           console.log("error placeorder:",err)
         })
       } catch (error) {
-        toast.error("Unexpected error !");
+        toast.update(id,{ render: "Error placing order",
+        type: "error", // Change type to 'success' to get green color
+        isLoading: false, // Mark it as not loading anymore
+        autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
       }
     }else{
-      toast.error("Please fill all the fields")
+      toast.error("Fill all fields",{ style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
     }
   };
 

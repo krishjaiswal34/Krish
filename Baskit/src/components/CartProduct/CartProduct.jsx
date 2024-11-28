@@ -1,13 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { SmallImage } from "../SmallImage/SmallImage";
-import { ProductContext } from "../../contexts/ProductContext";
-import Delete from "@mui/icons-material/Delete";
-import { DeleteBtn } from "../DeleteBtn/DeleteBtn";
-import { faSave } from "@fortawesome/free-regular-svg-icons";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingBag } from "@fortawesome/free-solid-svg-icons";
-import { toast, ToastContainer } from "react-toastify";
+import { ProductContext } from "../../contexts/ProductContext";
+
 import "react-toastify/dist/ReactToastify.css";
 import "../SmallImage/SmallImage";
 import { useNavigate } from "react-router-dom";
@@ -47,12 +41,12 @@ const CartProduct = ({
     }));
   }, [productQuantity, product]);
   return (
-    <div className="w-full flex px-4 py-4 h-[250px] gap-6">
+    <div className="w-full flex px-4 py-4  gap-6">
       <div
         onClick={() =>
           navigate("/product-detail", { state: { product: product } })
         }
-        className="w-1/3 bg-[rgba(0,0,0,0.1)] h-full rounded-lg flex items-center justify-center "
+        className="w-1/3 bg-[rgba(0,0,0,0.1)] sm:h-[250px] h-[150px] rounded-lg flex items-center justify-center "
       >
         <img className="h-full" src={thumbnail} />
       </div>

@@ -22,3 +22,12 @@
 *{
   font-family: "DM Sans", sans-serif;
 }
+
+@media (max-width:768px) {
+  #root{
+    
+  padding-right:10px;
+  padding-left: 10px;
+  }
+  
+}

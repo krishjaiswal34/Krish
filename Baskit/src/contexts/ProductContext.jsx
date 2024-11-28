@@ -4,6 +4,7 @@ import { createContext, useEffect, useRef, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebaseAuth";
 import { toast, ToastContainer } from "react-toastify";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 const ProductContext = createContext();
 const ProductContextProvider = ({ children }) => {
@@ -46,7 +47,7 @@ const ProductContextProvider = ({ children }) => {
 
   const addProductToUserCart = (product, sizeToBuy, quantityToBuy) => {
     const userAuthId = logedInUser.uid;
-
+const id=toast.loading('Adding to cart',{style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
     fetch(`${SERVER_URL}/addToCart`, {
       method: "POST",
       headers: {
@@ -60,16 +61,21 @@ const ProductContextProvider = ({ children }) => {
       }),
     })
       .then((product) => {
-        toast.success("Product Added to Cart !");
+       
+       toast.update(id,{ render: "Product added successfully!",
+       type: "success", // Change type to 'success' to get green color
+       isLoading: false, // Mark it as not loading anymore
+       autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
         fetchCartProducts();
+        return true
        
       })
-      .catch((err) => alert("Error adding to cart"));
+      .catch((err) => {toast.update(id,{render:'Error adding to cart',type:'error',isLoading:false,autoClose:3000,style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'}); return false;});
   };
 
   const removeProductFromUserCart = (product_id) => {
     const userAuthId = logedInUser.uid;
-
+const id=toast.loading("Removing from cart",{style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
     fetch(`${SERVER_URL}/removeProduct`, {
       method: "POST",
       headers: {
@@ -82,14 +88,22 @@ const ProductContextProvider = ({ children }) => {
     })
       .then(() => {
         fetchCartProducts();
-        toast.success("Product removed !", { position: "top-right" });
+        toast.update(id,{ render: "Product removed successfully ",
+        type: "success", // Change type to 'success' to get green color
+        isLoading: false, // Mark it as not loading anymore
+        autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
       })
-      .catch((err) => console.log("error:",err));
+      .catch((err) => {console.log("error:",err)
+      toast.update(id,{ render: "Error removing product",
+      type: "error", 
+      autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
+    
+    });
   };
 
   const updateCartProduct = (product_id, newQuantity) => {
     const userAuthId = logedInUser.uid;
-
+const id=toast.loading('Updating cart product',{style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
     fetch(`${SERVER_URL}/updateCartProduct`, {
       method: "POST",
       headers: {
@@ -107,7 +121,10 @@ const ProductContextProvider = ({ children }) => {
           const responseData = await response.json();
 
           if (responseData) {
-            toast.success("Cart Product Updated !", { position: "top-right" });
+            toast.update(id,{ render: "Product updated successfully ",
+            type: "success", // Change type to 'success' to get green color
+            isLoading: false, // Mark it as not loading anymore
+            autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
             fetchCartProducts();
           }
         }
@@ -115,6 +132,10 @@ const ProductContextProvider = ({ children }) => {
       .catch((err) => {
        
         console.warn("Unexpectedc error", err);
+        toast.update(id,{render: "Error updating cart product",
+        type: "error", // Change type to 'error' to get green color
+        isLoading: false, // Mark it as not loading anymore
+        autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
       });
   };
 
@@ -124,7 +145,7 @@ const ProductContextProvider = ({ children }) => {
     const userName = logedInUser.displayName
       ? logedInUser.displayName
       : "No name";
-    console.log("ll", product_id, comment, rating, userEmail);
+   const id=toast.loading("Adding rating",{style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
     fetch(`${SERVER_URL}/productRatingAndReview`, {
       method: "POST",
       headers: {
@@ -142,12 +163,18 @@ const ProductContextProvider = ({ children }) => {
         if (response.ok) {
           const responseData = await response.json();
           if (responseData) {
-            toast.success("Thanks for adding review !");
+            toast.update(id,{ render: "Rating submited",
+            type: "success", // Change type to 'success' to get green color
+            isLoading: false, // Mark it as not loading anymore
+            autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
           }
         }
       })
       .catch((err) => {
-        toast.error("Unexpected error");
+        toast.update(id,{ render: "Error submiting rating ",
+        type: "error", // Change type to 'success' to get green color
+        isLoading: false, // Mark it as not loading anymore
+        autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
       });
   };
 

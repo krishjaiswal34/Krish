@@ -9,17 +9,18 @@ const UserOrdersPage = () => {
   const { logedInUser } = useContext(FirebaseAuthContext);
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState([]);
+  const SERVER_URL=import.meta.env.VITE_SERVER_URL;
 
   const fethcUserOrders = () => {
     setLoading(true);
 
     try {
       fetch(
-        `http://localhost:8000/userOrders?userAuthId=${logedInUser.uid}`
+        `${SERVER_URL}/userOrders?userAuthId=${logedInUser.uid}`
       ).then(async (response) => {
         if (response.ok) {
           const responseData = await response.json();
-          console.log("orders responseData:", responseData);
+          
           setOrders(responseData.orders);
         } else {
           toast.error("Error fetching orders");

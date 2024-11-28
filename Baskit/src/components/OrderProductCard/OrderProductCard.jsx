@@ -14,11 +14,11 @@ const OrderProductCard = ({ orderDetail }) => {
   } = orderDetail;
 
   const navigate = useNavigate();
-  console.log("product", product, "product_id:", product_id);
+ 
 
   const thumbnail = product?.thumbnail;
   const price = parseInt(product?.price);
-  console.log("priceiie:", price);
+
   const name = product?.name;
   const buiedQuantity = product?.quantityToBuy;
   const buiedSize = product?.sizeToBuy;

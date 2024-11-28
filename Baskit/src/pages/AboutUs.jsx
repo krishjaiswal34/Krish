@@ -8,16 +8,7 @@ const AboutUs = () => {
   return (
     <div className="bg-gray-50 text-gray-800">
       {/* Hero Section */}
-      {/* <div className="relative bg-gradient-to-r from-purple-500 to-pink-500 text-white">
-        <div className="max-w-6xl mx-auto py-16 px-6 text-center">
-          <h1 className="text-4xl font-bold mb-4">About Us</h1>
-          <p className="text-lg">
-            Redefining fashion with elegance and sustainability.
-          </p>
-        </div>
-        <div className="absolute top-0 right-0 h-32 w-32 bg-purple-700 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 h-32 w-32 bg-pink-700 rounded-full blur-3xl"></div>
-      </div> */}
+     
 <Banner bannerImage={bannerImage} heading={'ABOUT'}/>
       {/* Story Section */}
       <div className="max-w-6xl mx-auto py-12 px-6 grid grid-cols-1 md:grid-cols-2 gap-8">

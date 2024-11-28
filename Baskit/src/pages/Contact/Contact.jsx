@@ -37,11 +37,11 @@ function Contact() {
       .then(
         (respone) => {
          
-          toast.success("Messae Successfully sent !");
+          toast.success("Messae Successfully sent !",{style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'});
         },
         (error) => {
           console.log("Failed", error);
-          toast.error("Message not sent !");
+          toast.error("Message not sent !",{style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'});
         }
       );
 

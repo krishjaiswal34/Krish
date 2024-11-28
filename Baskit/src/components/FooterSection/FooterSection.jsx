@@ -11,7 +11,7 @@ export const FooterSection = () => {
   <p>Your premier online destination for discovering the latest trends, timeless styles, and fashion essentials that cater to every individual. At Style Haven, we are passionate about fashion and believe it should be a reflection of your unique personality, mood, and lifestyle</p>
 </div>
 
-<div className='flex gap-20 h-full   justify-between text-start '>
+<div className='flex  h-full   justify-between text-start '>
 <div className='flex flex-col gap-4'>
   <h1 className='font-semibold text-xl'>COMPANY</h1>
   <div className=' flex flex-col'>

@@ -7,7 +7,7 @@ export const ProductCard = ({name,price,thumbnail , productVeiwClick}) => {
   
 
   return (
-    <div className='product-card flex flex-col justify-center items-center'>
+    <div className='product-card flex flex-col  items-center'>
         <div onClick={productVeiwClick} className='product-image-container'>
 <img  src={thumbnail} alt='image'/>
         </div>
