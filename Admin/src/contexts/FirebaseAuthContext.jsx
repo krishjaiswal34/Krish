@@ -18,6 +18,7 @@ const FirebaseAuthContextProvider = ({ children }) => {
   const [logedInUser, setLogedInUser] = useState(null);
 
   const registerUserWithEmailAndPassword = async (email, password) => {
+    const id=toast.loading("Registering...",{ style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
     try {
       const user = await createUserWithEmailAndPassword(
         firebaseAuth,
@@ -26,15 +27,21 @@ const FirebaseAuthContextProvider = ({ children }) => {
       )
         .then(async (usr) => {
           const { uid } = usr.user;
-          console.log("Registered user:", uid);
+         
           if(user){
-            toast.success("Registered successfully !")
+            toast.update(id,{ render: "Registered successfully...",
+            type: "error", 
+            isLoading: false, 
+            autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
           }
         
         })
         .catch((error) => {console.log("Error register user:", error);
        
-        toast.error("Invalid input !");
+        toast.update(id,{ render: "Invalid input",
+        type: "error", 
+        isLoading: false, 
+        autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
       });
     } catch (error) {
       
@@ -43,7 +50,7 @@ const FirebaseAuthContextProvider = ({ children }) => {
   };
 
   const loginUserWithEmailAndPassword = async (email, password) => {
-    console.log("e:",email,"p",password)
+    const id=toast.loading("loging in...",{ style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
     try {
       const user = await signInWithEmailAndPassword(
         firebaseAuth,
@@ -51,9 +58,12 @@ const FirebaseAuthContextProvider = ({ children }) => {
         password
       )
         .then((user) => {
-          console.log("Logined user:", user);
+       
           if(user){
-            toast.success("Logined Successfully !")
+            toast.update(id,{ render: "Logedin successfully",
+            type: "success", 
+            isLoading: false, 
+            autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
           }
         })
         .catch((error) => {
@@ -62,17 +72,27 @@ const FirebaseAuthContextProvider = ({ children }) => {
          
         });
     } catch (error) {
-      alert("Unexpected Error");
-      toast.error("Wrong Email or Password");
+      
+      toast.update(id,{ render: "wrong email or password",
+      type: "error", 
+      isLoading: false, 
+      autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
     }
   };
   const logOut=async()=>{
-    await signOut(firebaseAuth).then(()=>toast.success("LogOut successfully !")).catch(()=>toast.error("Error logOuting user"))
+    const id=toast.loading("loging out...",{ style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
+    await signOut(firebaseAuth).then(()=>    toast.update(id,{ render: "Logout successfully",
+    type: "success", 
+    isLoading: false, 
+    autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})).catch(()=>    toast.update(id,{ render: "Error loging out",
+    type: "error", 
+    isLoading: false, 
+    autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'}))
   }
 
   useEffect(() => {
     const logedInUser = onAuthStateChanged(firebaseAuth, (user) => {
-      console.log("logedInUser::", user);
+   
       setLogedInUser(user);
     });
   }, []);

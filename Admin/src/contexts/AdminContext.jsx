@@ -13,14 +13,14 @@ const AdminContextProvider = ({ children }) => {
       fetch(`${SERVER_URL}/orders`).then(async (response) => {
         if (response.ok) {
           const responeData = await response.json();
-          console.log("resoponeData:", responeData);
+        
           setOrders(responeData.orders);
         } else {
-          toast.error("Error fetching products");
+          console.log("Error fetching products");
         }
       });
     } catch (error) {
-      toast.error("Unexpected error");
+      console.log("Unexpected error",error);
     }
   };
 
@@ -29,18 +29,18 @@ const AdminContextProvider = ({ children }) => {
       fetch(`${SERVER_URL}/products`).then(async (response) => {
         if (response.ok) {
           const responeData = await response.json();
-          console.log("resoponeData:", responeData);
+         
           setListedProducts(responeData.products);
         } else {
-          toast.error("Error fetching products");
+          console.log("Error fetching products");
         }
       });
     } catch (error) {
-      toast.error("Unexpected error");
+      console.log("Unexpected error")
     }
   };
   const updateOrderStatus=(_id,newStatus)=>{
-
+const id=toast.loading("Updating order status...",{ style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
     try{
 
       fetch(`${SERVER_URL}/updateOrderStatus`,{
@@ -56,8 +56,11 @@ const AdminContextProvider = ({ children }) => {
       }).then(async(response)=>{
         if(response.ok){
           const responeData=await response.json();
-          console.log("response data fter product update:",responeData)
-          toast.success('Order status updated')
+         
+          toast.update(id,{ render: "Order status updated ",
+          type: "success", 
+          isLoading: false, 
+          autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
           if(responeData){
             fetchOrders();
           }
@@ -65,11 +68,16 @@ const AdminContextProvider = ({ children }) => {
       })
     }catch(erroor){
 
-  alert("erroor updateing status")
+  
+      toast.update(id,{ render: "Error updating order",
+      type: "error", 
+      isLoading: false, 
+      autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
     }
 
   }
 const deleteAProduct=(_id)=>{
+  const id=toast.loading("Deleting product...",{ style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
   try{
 
     fetch(`${SERVER_URL}/deleteAProduct/?product_id=${_id}`,{
@@ -81,17 +89,23 @@ const deleteAProduct=(_id)=>{
     }).then(async(response)=>{
       if(response.ok){
         const responeData=await response.json();
-        console.log("response data product delete",responeData)
+     
        
         if(responeData){
           fetchListeProducts();
-          toast.success("Product deleted !")
+          toast.update(id,{ render: "Product delted",
+          type: "success", 
+          isLoading: false, 
+          autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
         }
       }
     })
   }catch(erroor){
 
-alert("erroor Deleting prdduct")
+    toast.update(id,{ render: "Error deleting product",
+    type: "error", 
+    isLoading: false, 
+    autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
   }
 }
   useEffect(() => {

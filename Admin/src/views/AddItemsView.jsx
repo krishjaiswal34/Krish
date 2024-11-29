@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { ProductExtraIamge } from "../components/ProductExtraIamge";
-import image from "../assets/Tshirt.png";
+
 import { ProductSize } from "../components/ProductSize";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CustomCheckbox from "../components/CustomCheckBox";
-import { Loader } from "../components/Loader/Loader";
+
 export const AddItemsView = () => {
   const SERVER_URL = import.meta.env.VITE_SERVER_URL;
   const [thumbnail, setThumbnail] = useState();
@@ -21,50 +21,50 @@ export const AddItemsView = () => {
   const [isAdding, setIsAdding] = useState(false)
 
   const handleThumbnailChange = (e) => {
-    console.log("Thumbnail changed");
+   
     const image = e.target.files[0];
     setThumbnail(image);
   };
   const handleExtraImagesChange = (e) => {
-    console.log("extra images changed");
+   
 
     const image = e.target.files[0];
     const fieldName = e.target.name;
     setExtraImages({ ...extraImages, [fieldName]: image });
   };
   const handleNameChange = (e) => {
-    console.log("Name changed");
+    
 
     const newName = e.target.value;
     setName(newName);
   };
   const handlePriceChange = (e) => {
     const newPrice = parseInt(e.target.value);
-    console.log("price changed:", newPrice);
+
     setPrice(newPrice);
   };
   const handleSizeChange = (e) => {
     const newSize = e.target.innerText;
-    console.log("size changed", newSize);
+    
     setSizes([...sizes, newSize]);
   };
   const handleCategoryChange = (e) => {
-    console.log("category changed");
+   
     const newCategory = e.target.value;
     setCategory(newCategory);
   };
   const handleSubCategoryChange = (e) => {
-    console.log("subcategory changed");
+    
     const newSubCatgroy = e.target.value;
     setSubCategory(newSubCatgroy);
   };
   const handleSmallDescriptionChange = (e) => {
-    console.log("small desc  changed");
+    
     const newSmallDescription = e.target.value;
     setSmallDescription(newSmallDescription);
   };
   const handleFullDescriptionChange = (e) => {
-    console.log("full desc changed");
+
     const newFullDescription = e.target.value;
     setFullDescription(newFullDescription);
   };
@@ -80,9 +80,10 @@ export const AddItemsView = () => {
       !sizes ||
       !category ||
       !subcategory ||
-      !thumbnail
+      !thumbnail || !Object.keys(extraImages).length>1
     ) {
-      alert("Please fill in all the fields.");
+  
+      toast.error("Fill all fields",{style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
       return;
     }
     const formData = new FormData();
@@ -99,8 +100,8 @@ export const AddItemsView = () => {
     formData.append("category", category);
     formData.append("subCategory", subcategory);
 
-    console.log("formData:", formData);
-
+ 
+    const id=toast.loading("Product adding...",{ style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
     for (const key in extraImages) {
       if (extraImages[key]) {
         formData.append("extraImages", extraImages[key]);
@@ -121,17 +122,23 @@ export const AddItemsView = () => {
       .then(async (response) => {
         if (response.ok) {
           const responeData = await response.json();
-          console.log("response data ", responeData);
+          
           if (responeData) {
             setIsAdding(false)
-            toast.success("Product listed !");
+            toast.update(id,{ render: "Product listed successfully",
+            type: "success", 
+            isLoading: false, 
+            autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
           }
         }
       })
       .catch((err) => {
         setIsAdding(false)
-        console.log("ERror sending formdata", err);
-        toast.error("Unexpected error !");
+      
+        toast.update(id,{ render: "Error listing product",
+    type: "error", 
+    isLoading: false, 
+    autoClose: 3000, style:{maxWidth:'90%'},position:window.innerWidth<768?'top-center':'bottom-right'})
       });
   };
   useEffect(() => {
@@ -273,9 +280,9 @@ export const AddItemsView = () => {
           ADD
         </button>
       </form>
-      <div className={`fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.2)] flex justify-center items-center ${isAdding ? 'visible' : 'hidden'}`}>
+      {/* <div className={`fixed top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.2)] flex justify-center items-center ${isAdding ? 'visible' : 'hidden'}`}>
         <Loader />
-      </div>
+      </div> */}
 
     </>
   );
