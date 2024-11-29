@@ -2,7 +2,7 @@ import React, { useContext} from "react";
 
 import "react-toastify/dist/ReactToastify.css";
 
-import { AdminContext } from "../../contexts/adminContext";
+import { AdminContext } from "../../contexts/AdminContext";
 import './ListedItemCard.css'
 
 const ListedItemCard = ({ product }) => {

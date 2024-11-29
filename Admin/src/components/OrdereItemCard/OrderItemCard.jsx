@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { useState } from "react";
 
 import "react-toastify/dist/ReactToastify.css";
-import { AdminContext } from "../../contexts/adminContext";
+import { AdminContext } from "../../contexts/AdminContext";
 
 const OrderItemCard = ({ orderDetail }) => {
   const { product, status } = orderDetail;

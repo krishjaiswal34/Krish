@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useContext } from "react";
-import { AdminContext } from "../contexts/adminContext";
+import { AdminContext } from "../contexts/AdminContext";
 import ListedItemCard from "../components/ListedItemCard/ListedItemCard";
 
 export const ListedProductsView = () => {
