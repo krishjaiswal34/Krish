@@ -10,7 +10,7 @@ const ListedItemCard = ({ product }) => {
     const {deleteAProduct}=useContext(AdminContext);
   const thumbnail = product?.thumbnail;
   const price = parseInt(product?.price);
-  console.log("priceiie:", price);
+
   const name = product?.name;
   const availableSizes=product?.sizes;
   const productId=product?._id;
@@ -33,7 +33,7 @@ const ListedItemCard = ({ product }) => {
       >
         <div className="flex justify-between items-center text-xl w-full ">
           <h1 className=" ">{name}</h1>
-          <h1>${price}</h1>
+          <h1>₹{price}</h1>
         </div>
         <div className="flex justify-between items-center text-[rgba(0,0,0,0.6)] text-lg w-full ">
           <h1 className=" ">Category</h1>
