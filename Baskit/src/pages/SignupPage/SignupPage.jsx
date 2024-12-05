@@ -31,7 +31,7 @@ const user=await registerUserWithEmailAndPassword(email,password)
     if(logedInUser){
       navigate('/')
     }
-  },[])
+  },[logedInUser])
   return (
     <div className='flex min-h-[100vh] max-w-[1280px] flex-col items-center justify-center'>
 <ToastContainer/>
